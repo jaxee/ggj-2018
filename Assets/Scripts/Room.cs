@@ -17,21 +17,6 @@ public class Room : MonoBehaviour {
 		// Keep track of the number of healthy and sick people in a room
 	}
 
-	public void createPeople(int healthy, int sick) {
-		for (int i = 0; i < healthy; i++) {
-			// Create healthy people
-		}
-
-		for (int j = 0; j < sick; j++) {
-			// Create sick people
-		}
-
-		if (!spreadingVirus) {
-			StartCoroutine (InfectPeople());
-		}
-			
-	}
-
 	public int getNumberOfDoors () {
 		return numberOfDoors;
 	}
@@ -57,10 +42,19 @@ public class Room : MonoBehaviour {
 	{
 		spreadingVirus = true;
 		yield return new WaitForSeconds (virusSpreadTime);
+
+		int numOfInfectedPlayers = 0;
+
+
 		Debug.Log ("DIE DIE DIE!");
 		foreach (GameObject player in playersInRoom) {
 			AIComponent p = player.GetComponent<AIComponent> ();
 
+			if (p.isInfected) {
+				numOfInfectedPlayers++;
+			}
+				
+			//p.resilience;
 		}
 		spreadingVirus = false;
 	}
