@@ -9,8 +9,9 @@ public class Room : MonoBehaviour {
 	private int numberOfSick;
 	private int numberOfHealthy;
 	private bool[] doorStatus;
+	private List<GameObject> Transform = new List<GameObject>();
 
-	public Room (string type, int healthy, int sick) {
+	public Room (int type, int healthy, int sick) {
 		typeOfRoom = type;
 		numberOfHealthy = healthy;
 		numberOfSick = sick;
@@ -50,5 +51,9 @@ public class Room : MonoBehaviour {
 
 	public int getNumberOfDoors () {
 		return numberOfDoors;
+	}
+
+	public int getNumberOfPeople () {
+		return numberOfHealthy + numberOfSick;
 	}
 }
