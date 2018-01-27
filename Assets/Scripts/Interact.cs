@@ -1,16 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.AI;
 
 public class Interact : MonoBehaviour {
+	MeshRenderer meshRender;
+	Animator anim;
+	NavMeshObstacle meshObs;
 
-	// Use this for initialization
-	void Start () {
-		
+	void Start(){
+		meshRender = GetComponent<MeshRenderer> ();
+		anim = GetComponent<Animator> ();
+		meshObs = GetComponent<NavMeshObstacle> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	void OnMouseEnter(){
+		meshRender.enabled = true;
+	}
+
+	void OnMouseExit(){
+		meshRender.enabled = false;
+	}
+
+	void OnMouseDown(){
+		meshObs.enabled = !meshObs.enabled;
+		anim.SetTrigger ("door_toggle");
 	}
 }
