@@ -35,7 +35,7 @@ public class AIBehaviour : MonoBehaviour {
 		if (Random.Range (0, 100) <= roamChance) {
 			return SetRoamDestination(currentRoom);
 		} else {
-			return State.Loiter;
+			return SetLoiterDestination(currentRoom);
 		}
 	}
 }
