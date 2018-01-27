@@ -39,6 +39,7 @@ public class AIComponent : MonoBehaviour {
 	public bool isSymptomatic = false;
 
 	bool sneezing = false;
+	public bool isBoarding = false;
 
 	//Components
 	AIBehaviour behaviour;
@@ -89,53 +90,55 @@ public class AIComponent : MonoBehaviour {
 
 	//TODO: don't run while moving
 	void Update () {
-		//Will decide whether or not to move every ~1s.
-		if (frameCount >= 60) {
-			frameCount = 0;
-			//If a random number between 0 and the remaining loiter time is 1, Decide whether to wander in the same room, or move to a different room
-			if (meshAgent.velocity.magnitude < 0.5f) {
-				if (Random.Range (0, loiterTime) == 1) {
-					destination = behaviour.Decide (currentRoom, roamChance);
-					loiterTime = loiterThreshold;
-				} else {
-					loiterTime--;
-					loiterTime = Mathf.Clamp (loiterTime, 2, LOITER_THRESHOLD_MAX);
+		if (!isBoarding) {
+			//Will decide whether or not to move every ~1s.
+			if (frameCount >= 60) {
+				frameCount = 0;
+				//If a random number between 0 and the remaining loiter time is 1, Decide whether to wander in the same room, or move to a different room
+				if (meshAgent.velocity.magnitude < 0.5f) {
+					if (Random.Range (0, loiterTime) == 1) {
+						destination = behaviour.Decide (currentRoom, roamChance);
+						loiterTime = loiterThreshold;
+					} else {
+						loiterTime--;
+						loiterTime = Mathf.Clamp (loiterTime, 2, LOITER_THRESHOLD_MAX);
+					}
 				}
+			} else {
+				frameCount++;
 			}
-		} else {
-			frameCount++;
-		}
-		//Consume the destination by putting it into the meshAgent
-		if (destination != null) {
-			meshAgent.destination = destination.position;
-			meshAgent.isStopped = false;
-			destination = null;
-		}
+			//Consume the destination by putting it into the meshAgent
+			if (destination != null) {
+				meshAgent.destination = destination.position;
+				meshAgent.isStopped = false;
+				destination = null;
+			}
 
-		//Stop the agent if they reach their destination
-		if (meshAgent.remainingDistance <= meshAgent.stoppingDistance) {
-			meshAgent.isStopped = true;
-		}
+			//Stop the agent if they reach their destination
+			if (meshAgent.remainingDistance <= meshAgent.stoppingDistance) {
+				meshAgent.isStopped = true;
+			}
 			
-		if (isInfected) {
-			//Makes sure the material changes
-			//Not necessary, just for debug
-			if (meshRenderer.material != infectedMat) {
-				meshRenderer.material = infectedMat;
-			}
-			currentDeathCount = Time.time - deathTimer;
-			//If not symptomatic and not 'sneezing' do so for the first time
-			if (!isSymptomatic && !sneezing) {
-				StartCoroutine (Sneezing (true));
-			} else{
-				if (!sneezing)
-					StartCoroutine (Sneezing ());
-				// death will happen
-			}
+			if (isInfected) {
+				//Makes sure the material changes
+				//Not necessary, just for debug
+				if (meshRenderer.material != infectedMat) {
+					meshRenderer.material = infectedMat;
+				}
+				currentDeathCount = Time.time - deathTimer;
+				//If not symptomatic and not 'sneezing' do so for the first time
+				if (!isSymptomatic && !sneezing) {
+					StartCoroutine (Sneezing (true));
+				} else {
+					if (!sneezing)
+						StartCoroutine (Sneezing ());
+					// death will happen
+				}
 
-			if (currentDeathCount > deathTimeLength) {
-				Instantiate (death_Particles, transform.position, Quaternion.identity);
-				destroyPlayer();
+				if (currentDeathCount > deathTimeLength) {
+					Instantiate (death_Particles, transform.position, Quaternion.identity);
+					destoryPlayer ();
+				}
 			}
 		}
 

@@ -95,8 +95,11 @@ public class Interact : MonoBehaviour {
 					AIComponent p = player.GetComponent<AIComponent> ();
 					int r = escapePodEntrance.Next(evacuationPoints.Count);
 					Debug.Log ("Go to entrance: " + evacuationPoints[r]);
-					p.meshAgent.SetDestination (new Vector3(evacuationPoints[r].transform.position.x, transform.position.y, transform.position.z));
+					p.meshAgent.SetDestination (evacuationPoints[r].transform.position);
 					p.meshAgent.isStopped = false;
+					p.meshAgent.speed = 9f;
+					p.isBoarding = true;
+
 				}
 			}
 		}

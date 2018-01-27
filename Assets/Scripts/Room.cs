@@ -21,11 +21,6 @@ public class Room : MonoBehaviour {
 	}
 
 	void Start() {
-		foreach (Transform child in transform) {
-			if (child.tag == "Door") {
-				doors.Add (child.gameObject);
-			}
-		}
 	}
 
 	void OnTriggerEnter(Collider c){
