@@ -107,7 +107,7 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
-  m_NavMeshData: {fileID: 23800000, guid: df790279410789a43812e3ba0f287991, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 9db27e9400aecea418741a283e182161, type: 2}
 --- !u!114 &1537218 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114405722690166834, guid: 4843379f63b84ed4589caf800193b42b,
