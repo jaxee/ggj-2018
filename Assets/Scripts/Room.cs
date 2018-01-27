@@ -30,9 +30,12 @@ public class Room : MonoBehaviour {
 
 	void OnTriggerEnter(Collider c){
 		if (c.tag == "Player") {
-			playersInRoom.Add (c.gameObject);
-			c.GetComponent<AIComponent> ().currentRoom = gameObject;
-			Debug.Log ("Player " + c.name + " entered " + name);
+			AIComponent player = c.GetComponent<AIComponent> ();
+			if (!player.currentRoom == gameObject) {
+				playersInRoom.Add (c.gameObject);
+				c.GetComponent<AIComponent> ().currentRoom = gameObject;
+				Debug.Log ("Player " + c.name + " entered " + name);
+			}
 		}
 	}
 
