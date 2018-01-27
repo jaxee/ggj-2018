@@ -6,21 +6,33 @@ using UnityEngine.AI;
 
 public class Interact : MonoBehaviour {
 	MeshRenderer meshRender;
-	Animator anim;
-	NavMeshObstacle meshObs;
+	public Animator anim;
+	public NavMeshObstacle meshObs;
 	Manager manager;
-	bool isDoor;
+	Room currentRoom;
 	Color oldColor;
+	bool isDoor;
+	bool isAirLock;
+	bool isScanner;
+
+	// Escape pod variables
+	bool isEscapePod;
+	bool isEscapePodBoarding;
+	static System.Random escapePodEntrance = new System.Random();
+	public List<GameObject> evacuationPoints = new List<GameObject>();
 
 	void Start(){
 		meshRender = GetComponent<MeshRenderer> ();
 		anim = GetComponent<Animator> ();
 		meshObs = GetComponent<NavMeshObstacle> ();
 		manager = GameObject.FindObjectOfType<Manager> ();
+
+		isEscapePodBoarding = false;
+
 		if (tag == "Door") {
 			isDoor = true;
-		} else {
-			isDoor = false;
+		} else if (tag == "Escape") {
+			isEscapePod = true;
 		}
 		oldColor = meshRender.material.color;
 	}
@@ -62,7 +74,44 @@ public class Interact : MonoBehaviour {
 				Manager.doors [0].meshRender.material.color = oldColor;
 			}
 		}
+			
+		if (isEscapePod) {
+			isEscapePodBoarding = true;
+
+			currentRoom = transform.parent.GetComponent<Room>();
+			foreach (GameObject door in currentRoom.doors) {
+				Interact d = door.GetComponent<Interact> ();
+				if (!d.meshObs.enabled) {
+					d.anim.SetTrigger ("toggle");
+					d.meshObs.enabled = true;
+					Destroy (d);
+				}
+			}
+
+			if (currentRoom.playersInRoom.Count == 0) {
+				Debug.Log ("LAUNCH SHIP ANIMATION");
+			} else {
+				foreach(GameObject player in currentRoom.playersInRoom) {
+					AIComponent p = player.GetComponent<AIComponent> ();
+					int r = escapePodEntrance.Next(evacuationPoints.Count);
+					Debug.Log ("Go to entrance: " + evacuationPoints[r]);
+					p.meshAgent.SetDestination (new Vector3(evacuationPoints[r].transform.position.x, transform.position.y, transform.position.z));
+					p.meshAgent.isStopped = false;
+				}
+			}
+		}
 
 	}
 
+	public void OnTriggerEnter(Collider c){
+		if (c.tag == "Player" && isEscapePodBoarding) {
+			//Collect players, do points and destroy player game object
+			Debug.Log("Collect player: " + c.name);
+			c.GetComponent<AIComponent>().destoryPlayer();
+
+			if (currentRoom.playersInRoom.Count == 0) {
+				Debug.Log ("LAUNCH SHIP ANIMATION");
+			}
+		}
+	}
 }

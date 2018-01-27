@@ -135,8 +135,7 @@ public class AIComponent : MonoBehaviour {
 
 			if (currentDeathCount > deathTimeLength) {
 				Instantiate (death_Particles, transform.position, Quaternion.identity);
-				currentRoom.GetComponent<Room> ().playersInRoom.Remove (gameObject);
-				Destroy (gameObject);
+				destroyPlayer();
 			}
 		}
 
@@ -160,4 +159,10 @@ public class AIComponent : MonoBehaviour {
 			isSymptomatic = true;
 		sneezing = false;
 	}
+
+	public void destoryPlayer () {
+		currentRoom.GetComponent<Room> ().playersInRoom.Remove (gameObject);
+		Destroy (gameObject);
+	}
 }
+

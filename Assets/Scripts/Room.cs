@@ -5,8 +5,8 @@ using UnityEngine;
 public class Room : MonoBehaviour {
 
 	public int typeOfRoom; // 1 is normal, 2 is hazard, 3 is escape
-	public int numberOfDoors;
 	private bool[] doorStatus;
+	public List<GameObject> doors = new List<GameObject>();
 	public List<Transform> loiterNodes = new List<Transform>();
 	public List<GameObject> playersInRoom = new List<GameObject>();
 
@@ -20,8 +20,12 @@ public class Room : MonoBehaviour {
 		}
 	}
 
-	public int getNumberOfDoors () {
-		return numberOfDoors;
+	void Start() {
+		foreach (Transform child in transform) {
+			if (child.tag == "Door") {
+				doors.Add (child.gameObject);
+			}
+		}
 	}
 
 	void OnTriggerEnter(Collider c){
