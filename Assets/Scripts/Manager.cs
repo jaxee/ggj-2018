@@ -16,17 +16,23 @@ public class Manager : MonoBehaviour {
 	private int numberOfSickPeople = 0;
 	private int numberOfHealthyPeople = 0;
 
-	AIComponent[] person;
+	public GameObject person;
 
 	void Start () {
 		numberOfSickPeople = difficulty * DIFFICULTY_MULTIPLIER;
 		numberOfHealthyPeople = numberOfPeople - numberOfSickPeople;
 
 		for (int j = 0; j < numberOfPeople; j++) {
-			// Make the correct number of people
+			// Can change where the player spawns here
+			GameObject newPerson = Instantiate (person, new Vector3(transform.position.x+j, transform.position.y, 0), transform.rotation) as GameObject;
+
+			AIComponent p = newPerson.GetComponent<AIComponent> ();
+
+			if (j < numberOfSickPeople) {
+				p.isInfected = true;
+			}
 		}
 
-		Debug.Log ("Number of Doors: " + numberOfDoors);
 		Debug.Log ("Number of People: " + numberOfPeople + " | sick: " + numberOfSickPeople + " healthy: " + numberOfHealthyPeople);
 	}
 	

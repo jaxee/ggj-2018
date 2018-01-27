@@ -14,7 +14,7 @@ public class Room : MonoBehaviour {
 	bool spreadingVirus = false;
 	
 	void Update () {
-		// Keep track of the number of healthy and sick people in a room
+		
 	}
 
 	public int getNumberOfDoors () {
