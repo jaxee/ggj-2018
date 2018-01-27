@@ -11,9 +11,14 @@ public class Interact : MonoBehaviour {
 	Manager manager;
 	Room currentRoom;
 	bool isDoor;
-	bool isEscapePod;
 	bool isAirLock;
 	bool isScanner;
+
+	// Escape pod variables
+	bool isEscapePod;
+	bool isEscapePodBoarding;
+	static System.Random escapePodEntrance = new System.Random();
+	public List<GameObject> evacuationPoints = new List<GameObject>();
 
 	void Start(){
 		meshRender = GetComponent<MeshRenderer> ();
@@ -21,7 +26,7 @@ public class Interact : MonoBehaviour {
 		meshObs = GetComponent<NavMeshObstacle> ();
 		manager = GameObject.FindObjectOfType<Manager> ();
 
-		Debug.Log ("Tag: " + tag);
+		isEscapePodBoarding = false;
 
 		if (tag == "Door") {
 			isDoor = true;
@@ -57,22 +62,42 @@ public class Interact : MonoBehaviour {
 		}
 
 		if (isEscapePod) {
+			isEscapePodBoarding = true;
+
 			currentRoom = transform.parent.GetComponent<Room>();
 			foreach (GameObject door in currentRoom.doors) {
 				Interact d = door.GetComponent<Interact> ();
 				if (!d.meshObs.enabled) {
 					d.anim.SetTrigger ("toggle");
 					d.meshObs.enabled = true;
+					Destroy (d);
 				}
 			}
 
-			if (!currentRoom.playersInRoom.Count == 0) {
-				Debug.Log ("Players: " + currentRoom.playersInRoom);
-			} else {
+			if (currentRoom.playersInRoom.Count == 0) {
 				Debug.Log ("LAUNCH SHIP ANIMATION");
+			} else {
+				foreach(GameObject player in currentRoom.playersInRoom) {
+					AIComponent p = player.GetComponent<AIComponent> ();
+					int r = escapePodEntrance.Next(evacuationPoints.Count);
+					Debug.Log ("Go to entrance: " + evacuationPoints[r]);
+					p.meshAgent.SetDestination (new Vector3(evacuationPoints[r].transform.position.x, transform.position.y, transform.position.z));
+					p.meshAgent.isStopped = false;
+				}
 			}
-
 		}
 
+	}
+
+	public void OnTriggerEnter(Collider c){
+		if (c.tag == "Player" && isEscapePodBoarding) {
+			//Collect players, do points and destroy player game object
+			Debug.Log("Collect player: " + c.name);
+			c.GetComponent<AIComponent>().destoryPlayer();
+
+			if (currentRoom.playersInRoom.Count == 0) {
+				Debug.Log ("LAUNCH SHIP ANIMATION");
+			}
+		}
 	}
 }

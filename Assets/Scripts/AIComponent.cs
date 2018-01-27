@@ -36,7 +36,7 @@ public class AIComponent : MonoBehaviour {
 
 	//Components
 	AIBehaviour behaviour;
-	NavMeshAgent meshAgent;
+	public NavMeshAgent meshAgent;
 	MeshRenderer meshRenderer;
 	public Material infectedMat;
 	Canvas canvas;
@@ -137,7 +137,10 @@ public class AIComponent : MonoBehaviour {
 		if (first)
 			isSymptomatic = true;
 		sneezing = false;
+	}
 
-
+	public void destoryPlayer () {
+		currentRoom.GetComponent<Room> ().playersInRoom.Remove (gameObject);
+		Destroy (gameObject);
 	}
 }
