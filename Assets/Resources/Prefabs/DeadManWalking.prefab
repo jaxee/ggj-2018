@@ -96,7 +96,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 1
@@ -122,6 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704cfd98233cb0448c5e936826141ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resilience: 0
+  isInfected: 0
+  isSymptomatic: 0
   currentRoom: {fileID: 0}
 --- !u!136 &136347790500897314
 CapsuleCollider:
@@ -145,15 +148,15 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 4
+  m_Speed: 5
   m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 1

@@ -91,6 +91,10 @@ public class AIComponent : MonoBehaviour {
 			meshAgent.isStopped = false;
 			destination = null;
 		}
+
+		if (meshAgent.remainingDistance <= meshAgent.stoppingDistance) {
+			meshAgent.isStopped = true;
+		}
 			
 		if (isInfected && !isSymptomatic) {
 			Debug.Log ("When they will become symptomatic: " + symptomaticTime);
