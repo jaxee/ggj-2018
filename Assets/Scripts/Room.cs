@@ -9,7 +9,8 @@ public class Room : MonoBehaviour {
 	private int numberOfSick;
 	private int numberOfHealthy;
 	private bool[] doorStatus;
-	private List<GameObject> Transform = new List<GameObject>();
+	public List<Transform> loiterNodes = new List<Transform>();
+	public List<GameObject> playersInRoom = new List<GameObject>();
 
 	public Room (int type, int healthy, int sick) {
 		typeOfRoom = type;
@@ -55,5 +56,19 @@ public class Room : MonoBehaviour {
 
 	public int getNumberOfPeople () {
 		return numberOfHealthy + numberOfSick;
+	}
+
+	void OnTriggerEnter(Collider c){
+		if (c.tag == "Player") {
+			playersInRoom.Add (c.gameObject);
+			c.GetComponent<AIComponent> ().currentRoom = gameObject;
+			Debug.Log ("Player " + c.name + " entered " + name);
+		}
+	}
+
+	void OnTriggerExit(Collider c){
+		if (c.tag == "Player") {
+			playersInRoom.Remove (c.gameObject);
+		}
 	}
 }

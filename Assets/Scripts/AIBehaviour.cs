@@ -5,7 +5,9 @@ using UnityEngine;
 public class AIBehaviour : MonoBehaviour {
 
 	//List of rooms to pick from for destination
-	public List<GameObject> rooms = new List<GameObject>();
+	private GameObject[] roomsGO;
+	public static List<Room> rooms = new List<Room>();
+
 
 	public enum State{
 		Loiter,
@@ -15,20 +17,29 @@ public class AIBehaviour : MonoBehaviour {
 		MAX_STATES
 	};
 
-	public Transform SetRoamDestination(GameObject currentRoom){
-		Transform dest;
-		do {
-			dest = rooms [Random.Range (0, rooms.Count)].transform;
-		} while(dest == currentRoom.transform);
-		return dest;
+	void Start()
+	{
+		roomsGO = GameObject.FindGameObjectsWithTag ("Room");
+		for (int i = 0; i < roomsGO.Length; i++) {
+			rooms.Add(roomsGO[i].GetComponent<Room>());
+		}
 	}
 
-	public Transform SetLoiterDestination(GameObject currentRoom){
-		Transform dest;
-		do {
-			dest = rooms [Random.Range (0, rooms.Count)].transform;
-		} while(dest == currentRoom.transform);
-		return dest;
+	public Transform SetRoamDestination(GameObject currentRoom){
+		Room destRoom;
+
+		//Select a room at random from our list
+		do{
+			destRoom = rooms [Random.Range (0, rooms.Count)];
+		} while(destRoom.gameObject == currentRoom);
+
+		//Return a random transform node in the selected room
+		return SetLoiterDestination(destRoom.gameObject);
+	}
+
+	public Transform SetLoiterDestination(GameObject targetRoom){
+		Room room = targetRoom.GetComponent<Room> ();
+		return room.loiterNodes[Random.Range (0, room.loiterNodes.Count)];;
 	}
 
 	public Transform Decide(GameObject currentRoom, int roamChance){
