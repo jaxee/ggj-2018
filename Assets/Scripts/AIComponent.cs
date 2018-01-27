@@ -38,13 +38,16 @@ public class AIComponent : MonoBehaviour {
 	AIBehaviour behaviour;
 	NavMeshAgent meshAgent;
 	MeshRenderer meshRenderer;
-	public Material infectedMat;
 	Canvas canvas;
+
+	public Material infectedMat;
+	public GameObject sick_Particles;
 
 	Transform destination;
 	public GameObject currentRoom;
 
-	AIBehaviour.State currentState = AIBehaviour.State.Loiter;
+	//AIBehaviour.State currentState = AIBehaviour.State.Loiter;
+
 
 
 	int loiterTime;
@@ -133,11 +136,9 @@ public class AIComponent : MonoBehaviour {
 		if (first)
 			wait += 10f;
 		yield return new WaitForSeconds (wait);
-		Debug.Log ("ACHOO!");
+		Instantiate (sick_Particles, transform.position, Quaternion.identity, transform);
 		if (first)
 			isSymptomatic = true;
 		sneezing = false;
-
-
 	}
 }
