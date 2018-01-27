@@ -8,7 +8,7 @@ public class Manager : MonoBehaviour {
 
 	public Room[] rooms;
 	public int numberOfPeople;
-	public int difficulty; // Between 1 and 10
+	public int difficulty; // Between 1 and 5
 
 	private int score = 0;
 
@@ -23,8 +23,9 @@ public class Manager : MonoBehaviour {
 		numberOfHealthyPeople = numberOfPeople - numberOfSickPeople;
 
 		for (int j = 0; j < numberOfPeople; j++) {
-			// Can change where the player spawns here
-			GameObject newPerson = Instantiate (person, new Vector3(transform.position.x+j, transform.position.y, 0), transform.rotation) as GameObject;
+			Room room = rooms[Random.Range(0, rooms.Length)];
+			Vector3 spawnPos = room.loiterNodes [Random.Range (0, room.loiterNodes.Count)].position;
+			GameObject newPerson = Instantiate (person, spawnPos, transform.rotation) as GameObject;
 
 			AIComponent p = newPerson.GetComponent<AIComponent> ();
 
