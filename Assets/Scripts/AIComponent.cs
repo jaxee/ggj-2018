@@ -92,13 +92,14 @@ public class AIComponent : MonoBehaviour {
 
 		if (isInfected && !isSymptomatic) {
 			Debug.Log ("When they will become symptomatic: " + symptomaticTime);
-			if (becomingSymptomatic == symptomaticTime) {
+			if (becomingSymptomatic >= symptomaticTime) {
 				isSymptomatic = true;
 			}
 
 			becomingSymptomatic++;
 		} else if (isInfected && isSymptomatic) {
 			// death will happen
+			// show some symptoms?
 		}
 	}
 }
