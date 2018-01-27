@@ -57,6 +57,7 @@ public class AIComponent : MonoBehaviour {
 		behaviour = GetComponent<AIBehaviour> ();
 		meshAgent = GetComponent<NavMeshAgent> ();
 		meshRenderer = GetComponent<MeshRenderer> ();
+		canvas = GetComponent<Canvas> ();
 
 		//Different AI will tend to move around more often than others.
 		loiterThreshold = Random.Range (LOITER_THRESHOLD_MIN, LOITER_THRESHOLD_MAX);
