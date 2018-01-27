@@ -27,7 +27,7 @@ public class CamControl : MonoBehaviour {
 		if(addedPos.magnitude > 1.5f)
 			transform.position = Vector3.Lerp(transform.position, transform.position + addedPos, Time.deltaTime * smoothing);
 
-		//transform.position = new Vector3 (Mathf.Clamp (transform.position.x, -150f, 50f), Mathf.Clamp (transform.position.y, 60f, 220f), transform.position.z);
+		transform.position = new Vector3 (Mathf.Clamp (transform.position.x, -200f, 0), Mathf.Clamp (transform.position.y, 150, 300f), transform.position.z);
 
 		
 	}

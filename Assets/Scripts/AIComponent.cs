@@ -7,8 +7,8 @@ public class AIComponent : MonoBehaviour {
 	int LOITER_THRESHOLD_MIN = 5;
 	int LOITER_THRESHOLD_MAX = 8;
 
-	int ROAM_PERCENT_MIN = 30;
-	int ROAM_PERCENT_MAX = 50;
+	int ROAM_PERCENT_MIN = 40;
+	int ROAM_PERCENT_MAX = 60;
 
 	int RESIL_MIN = 70;
 	int RESIL_MAX = 100;
@@ -42,7 +42,7 @@ public class AIComponent : MonoBehaviour {
 
 	//Components
 	AIBehaviour behaviour;
-	NavMeshAgent meshAgent;
+	public NavMeshAgent meshAgent;
 	MeshRenderer meshRenderer;
 	Canvas canvas;
 
