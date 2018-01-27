@@ -2257,6 +2257,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 27
       objectReference: {fileID: 0}
+    - target: {fileID: 114757811684581300, guid: df93e5e81c67f39499e405024d708f4b,
+        type: 2}
+      propertyPath: infectedMat
+      value: 
+      objectReference: {fileID: 2100000, guid: f4d92d156604c804ca4fecca8f7a9097, type: 2}
+    - target: {fileID: 114757811684581300, guid: df93e5e81c67f39499e405024d708f4b,
+        type: 2}
+      propertyPath: isInfected
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23970661089415214, guid: df93e5e81c67f39499e405024d708f4b,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f4d92d156604c804ca4fecca8f7a9097, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: df93e5e81c67f39499e405024d708f4b, type: 2}
   m_IsPrefabParent: 0

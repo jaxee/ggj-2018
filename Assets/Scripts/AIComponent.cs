@@ -5,13 +5,13 @@ using UnityEngine.AI;
 
 public class AIComponent : MonoBehaviour {
 	int LOITER_THRESHOLD_MIN = 5;
-	int LOITER_THRESHOLD_MAX = 10;
+	int LOITER_THRESHOLD_MAX = 8;
 
 	int ROAM_PERCENT_MIN = 30;
 	int ROAM_PERCENT_MAX = 50;
 
-	float RESIL_MIN = 0.0f;
-	float RESIL_MAX = 5.0f;
+	int RESIL_MIN = 70;
+	int RESIL_MAX = 100;
 
 	float SYMP_MIN = 1200.0f;
 	float SYMP_MAX = 7200.0f;
@@ -23,7 +23,7 @@ public class AIComponent : MonoBehaviour {
 	int roamChance;
 
 	// How likely they are to get sick
-	public float resilience;
+	public int resilience;
 
 	// How long after infected does the player become symptomatic
 	private float symptomaticTime = 0.0f;
@@ -35,13 +35,15 @@ public class AIComponent : MonoBehaviour {
 
 	//Components
 	AIBehaviour behaviour;
-
+	NavMeshAgent meshAgent;
+	MeshRenderer meshRenderer;
+	public Material infectedMat;
 
 	Transform destination;
 	public GameObject currentRoom;
 
 	AIBehaviour.State currentState = AIBehaviour.State.Loiter;
-	NavMeshAgent meshAgent;
+
 
 	int loiterTime;
 
@@ -49,9 +51,10 @@ public class AIComponent : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("Create person");
+
 		behaviour = GetComponent<AIBehaviour> ();
 		meshAgent = GetComponent<NavMeshAgent> ();
+		meshRenderer = GetComponent<MeshRenderer> ();
 
 		//Different AI will tend to move around more often than others.
 		loiterThreshold = Random.Range (LOITER_THRESHOLD_MIN, LOITER_THRESHOLD_MAX);
@@ -92,20 +95,29 @@ public class AIComponent : MonoBehaviour {
 			destination = null;
 		}
 
+		//Stop the agent if they reach their destination
 		if (meshAgent.remainingDistance <= meshAgent.stoppingDistance) {
 			meshAgent.isStopped = true;
 		}
 			
-		if (isInfected && !isSymptomatic) {
-			Debug.Log ("When they will become symptomatic: " + symptomaticTime);
-			if (becomingSymptomatic >= symptomaticTime) {
-				isSymptomatic = true;
-			}
+		if (isInfected) {
+			if (!isSymptomatic) {
+				//Debug.Log ("When they will become symptomatic: " + symptomaticTime);
+				if (becomingSymptomatic >= symptomaticTime) {
+					isSymptomatic = true;
+				}
 
-			becomingSymptomatic++;
-		} else if (isInfected && isSymptomatic) {
-			// death will happen
-			// show some symptoms?
+				becomingSymptomatic++;
+			} else{
+				// death will happen
+				// show some symptoms?
+			}
 		}
+
+	}
+
+	public void Infect(){
+		meshRenderer.material = infectedMat;
+		isInfected = true;
 	}
 }

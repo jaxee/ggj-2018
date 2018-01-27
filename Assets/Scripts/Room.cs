@@ -12,9 +12,12 @@ public class Room : MonoBehaviour {
 
 	float virusSpreadTime = 5f;
 	bool spreadingVirus = false;
-	
+	int numOfInfectedPlayers = 0;
+
 	void Update () {
-		
+		if (!spreadingVirus) {
+			StartCoroutine (InfectPeople ());
+		}
 	}
 
 	public int getNumberOfDoors () {
@@ -24,8 +27,10 @@ public class Room : MonoBehaviour {
 	void OnTriggerEnter(Collider c){
 		if (c.tag == "Player") {
 			AIComponent player = c.GetComponent<AIComponent> ();
-			if (!player.currentRoom == gameObject) {
+			if (!playersInRoom.Contains(c.gameObject)) {
 				playersInRoom.Add (c.gameObject);
+				if (player.isInfected)
+					numOfInfectedPlayers++;
 				c.GetComponent<AIComponent> ().currentRoom = gameObject;
 			}
 		}
@@ -33,7 +38,10 @@ public class Room : MonoBehaviour {
 
 	void OnTriggerExit(Collider c){
 		if (c.tag == "Player") {
+			AIComponent player = c.GetComponent<AIComponent> ();
 			playersInRoom.Remove (c.gameObject);
+			if (player.isInfected)
+				numOfInfectedPlayers--;
 		}
 	}
 
@@ -41,19 +49,16 @@ public class Room : MonoBehaviour {
 	{
 		spreadingVirus = true;
 		yield return new WaitForSeconds (virusSpreadTime);
-
-		int numOfInfectedPlayers = 0;
-
-
-		Debug.Log ("DIE DIE DIE!");
-		foreach (GameObject player in playersInRoom) {
-			AIComponent p = player.GetComponent<AIComponent> ();
-
-			if (p.isInfected) {
-				numOfInfectedPlayers++;
+		if (numOfInfectedPlayers > 0) {
+			foreach (GameObject player in playersInRoom) {
+				AIComponent p = player.GetComponent<AIComponent> ();
+				//Resilience is their %chance to get infected.
+				if (Random.Range (0, 100) > p.resilience && !p.isInfected) {
+					p.Infect ();
+				} else {
+					p.resilience -= numOfInfectedPlayers * 2;
+				}
 			}
-				
-			//p.resilience;
 		}
 		spreadingVirus = false;
 	}
