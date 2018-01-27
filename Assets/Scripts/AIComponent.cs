@@ -16,6 +16,12 @@ public class AIComponent : MonoBehaviour {
 	float SYMP_MIN = 10.0f;
 	float SYMP_MAX = 20.0f;
 
+	float DEATH_MIN = 90f;
+	float DEATH_MAX = 120f;
+	float deathTimeLength;
+	float deathTimer;
+	public float currentDeathCount;
+
 	//The max amount of time an AI will stay still
 	int loiterThreshold;
 
@@ -42,6 +48,7 @@ public class AIComponent : MonoBehaviour {
 
 	public Material infectedMat;
 	public GameObject sick_Particles;
+	public GameObject death_Particles;
 
 	Transform destination;
 	public GameObject currentRoom;
@@ -74,6 +81,10 @@ public class AIComponent : MonoBehaviour {
 
 		// How long after infected does the player become symptomatic
 		symptomaticTime = Random.Range(SYMP_MIN, SYMP_MAX);
+
+		//How long after infected does the player have to live
+		deathTimeLength = Random.Range(DEATH_MIN, DEATH_MAX);
+		deathTimer = Time.time;
 	}
 
 	//TODO: don't run while moving
@@ -109,9 +120,10 @@ public class AIComponent : MonoBehaviour {
 		if (isInfected) {
 			//Makes sure the material changes
 			//Not necessary, just for debug
-			if (meshRenderer.material != infectedMat)
+			if (meshRenderer.material != infectedMat) {
 				meshRenderer.material = infectedMat;
-
+			}
+			currentDeathCount = Time.time - deathTimer;
 			//If not symptomatic and not 'sneezing' do so for the first time
 			if (!isSymptomatic && !sneezing) {
 				StartCoroutine (Sneezing (true));
@@ -120,6 +132,12 @@ public class AIComponent : MonoBehaviour {
 					StartCoroutine (Sneezing ());
 				// death will happen
 			}
+
+			if (currentDeathCount > deathTimeLength) {
+				Instantiate (death_Particles, transform.position, Quaternion.identity);
+				currentRoom.GetComponent<Room> ().playersInRoom.Remove (gameObject);
+				Destroy (gameObject);
+			}
 		}
 
 	}
@@ -127,6 +145,7 @@ public class AIComponent : MonoBehaviour {
 	public void Infect(){
 		meshRenderer.material = infectedMat;
 		becomingSymptomatic = Time.time;
+		deathTimer = Time.time;
 	}
 
 	IEnumerator Sneezing(bool first = false){

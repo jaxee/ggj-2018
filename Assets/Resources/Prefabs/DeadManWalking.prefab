@@ -126,6 +126,10 @@ MonoBehaviour:
   isInfected: 0
   isSymptomatic: 0
   infectedMat: {fileID: 2100000, guid: f4d92d156604c804ca4fecca8f7a9097, type: 2}
+  sick_Particles: {fileID: 1269828858590394, guid: e6a21e32c2c50194bbe55e224fdf0d59,
+    type: 2}
+  death_Particles: {fileID: 1045777288519542, guid: 819a01a8ef391a9428e98136ddc2c423,
+    type: 2}
   currentRoom: {fileID: 0}
 --- !u!136 &136347790500897314
 CapsuleCollider:
