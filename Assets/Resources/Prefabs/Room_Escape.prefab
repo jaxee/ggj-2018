@@ -61,7 +61,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1082330211917548
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +355,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1583481581535822
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1813819564026140
 GameObject:
   m_ObjectHideFlags: 1
@@ -554,7 +554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1985221766447156
 GameObject:
   m_ObjectHideFlags: 1
@@ -2390,6 +2390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   meshObs: {fileID: 0}
+  evacuationPoints: []
 --- !u!114 &114258238321192476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2403,6 +2404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   meshObs: {fileID: 0}
+  evacuationPoints: []
 --- !u!114 &114276576023311214
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2416,6 +2418,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   meshObs: {fileID: 0}
+  evacuationPoints:
+  - {fileID: 1952424410598976}
+  - {fileID: 1781082615732730}
+  - {fileID: 1568520343592688}
+  - {fileID: 1077421641047988}
 --- !u!114 &114925601348065348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2447,7 +2454,6 @@ MonoBehaviour:
   - {fileID: 4992242843423412}
   - {fileID: 4844680575270384}
   playersInRoom: []
-  evacuationPoints: []
 --- !u!135 &135246230854549098
 SphereCollider:
   m_ObjectHideFlags: 1
