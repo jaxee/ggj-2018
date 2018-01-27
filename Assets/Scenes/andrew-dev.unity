@@ -1436,6 +1436,7 @@ GameObject:
   - component: {fileID: 1238618364}
   - component: {fileID: 1238618363}
   - component: {fileID: 1238618368}
+  - component: {fileID: 1238618369}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1484,7 +1485,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 73.1
+  orthographic size: 75
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1507,7 +1508,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1238618362}
   m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 16, y: 60, z: 7}
+  m_LocalPosition: {x: -50, y: 145, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1553,6 +1554,17 @@ MonoBehaviour:
   numberOfPeople: 30
   difficulty: 1
   person: {fileID: 1564335697416558, guid: df93e5e81c67f39499e405024d708f4b, type: 2}
+--- !u!114 &1238618369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1238618362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33005848aaab4dd4cb087f0fb6bfa4dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1252876677
 Prefab:
   m_ObjectHideFlags: 0
