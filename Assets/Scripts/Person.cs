@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class Person : MonoBehaviour {
 
-	private bool isHealthy;
-
-	public Person (bool isHealthy) {
-
-	}
-
 	// Use this for initialization
 	void Start () {
 		
