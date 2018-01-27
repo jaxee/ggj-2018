@@ -10,11 +10,16 @@ public class AIComponent : MonoBehaviour {
 	int ROAM_PERCENT_MIN = 10;
 	int ROAM_PERCENT_MAX = 30;
 
+	float RESIL_MIN;
+	float RESIL_MAX;
+
 	//The max amount of time an AI will stay still
 	int loiterThreshold;
 
 	//% chance to Roam when moving
 	int roamChance;
+
+	float resilience;
 
 	//Components
 	AIBehaviour behaviour;
