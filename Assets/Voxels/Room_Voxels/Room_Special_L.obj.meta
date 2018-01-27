@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: a6c9d9786507abc4ca252b1ebdd96d85
+guid: 48032a559347b7f4eb62f8d2541d8b51
 timeCreated: 1517025322
 licenseType: Pro
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
-    100000: Room_Default
+    100000: Room_Special_L
     100002: //RootNode
-    400000: Room_Default
+    400000: Room_Special_L
     400002: //RootNode
-    2300000: Room_Default
-    3300000: Room_Default
-    4300000: Room_Default
+    2300000: Room_Special_L
+    3300000: Room_Special_L
+    4300000: Room_Special_L
   materials:
     importMaterials: 1
     materialName: 0
