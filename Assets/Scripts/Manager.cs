@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour {
 
+	public static List<Interact> doors = new List<Interact> ();
+	private int maxDoorsClosed = 6;
+
 	const int DIFFICULTY_MULTIPLIER = 3;
 
 	public Room[] rooms;
@@ -34,11 +37,18 @@ public class Manager : MonoBehaviour {
 			}
 		}
 
-		Debug.Log ("Number of People: " + numberOfPeople + " | sick: " + numberOfSickPeople + " healthy: " + numberOfHealthyPeople);
+		//Debug.Log ("Number of People: " + numberOfPeople + " | sick: " + numberOfSickPeople + " healthy: " + numberOfHealthyPeople);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		CheckDoors ();
+	}
 
+	//Opens the first door in the list if the list exceeds max count
+	public void CheckDoors(){
+		if (doors.Count > maxDoorsClosed) {
+			doors [0].TriggerDoor ();
+		}
 	}
 }

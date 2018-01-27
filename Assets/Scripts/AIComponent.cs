@@ -101,6 +101,8 @@ public class AIComponent : MonoBehaviour {
 		}
 			
 		if (isInfected) {
+			if (meshRenderer.material != infectedMat)
+				meshRenderer.material = infectedMat;
 			if (!isSymptomatic) {
 				//Debug.Log ("When they will become symptomatic: " + symptomaticTime);
 				if (becomingSymptomatic >= symptomaticTime) {
@@ -118,6 +120,6 @@ public class AIComponent : MonoBehaviour {
 
 	public void Infect(){
 		meshRenderer.material = infectedMat;
-		isInfected = true;
+
 	}
 }

@@ -54,9 +54,10 @@ public class Room : MonoBehaviour {
 				AIComponent p = player.GetComponent<AIComponent> ();
 				//Resilience is their %chance to get infected.
 				if (Random.Range (0, 100) > p.resilience && !p.isInfected) {
-					p.Infect ();
+					p.isInfected = true;
 				} else {
 					p.resilience -= numOfInfectedPlayers * 2;
+					p.resilience = Mathf.Clamp (p.resilience, 0, 100);
 				}
 			}
 		}
