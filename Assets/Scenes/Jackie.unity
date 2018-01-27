@@ -246,6 +246,7 @@ MonoBehaviour:
   - {fileID: 866556285}
   numberOfPeople: 100
   difficulty: 1
+  person: {fileID: 0}
 --- !u!4 &408035134
 Transform:
   m_ObjectHideFlags: 0
