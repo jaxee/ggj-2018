@@ -9,6 +9,9 @@ public class Room : MonoBehaviour {
 	private bool[] doorStatus;
 	public List<Transform> loiterNodes = new List<Transform>();
 	public List<GameObject> playersInRoom = new List<GameObject>();
+
+	float virusSpreadTime = 5f;
+	bool spreadingVirus = false;
 	
 	void Update () {
 		// Keep track of the number of healthy and sick people in a room
@@ -22,6 +25,11 @@ public class Room : MonoBehaviour {
 		for (int j = 0; j < sick; j++) {
 			// Create sick people
 		}
+
+		if (!spreadingVirus) {
+			StartCoroutine (InfectPeople());
+		}
+			
 	}
 
 	public int getNumberOfDoors () {
@@ -43,5 +51,17 @@ public class Room : MonoBehaviour {
 		if (c.tag == "Player") {
 			playersInRoom.Remove (c.gameObject);
 		}
+	}
+
+	IEnumerator InfectPeople()
+	{
+		spreadingVirus = true;
+		yield return new WaitForSeconds (virusSpreadTime);
+		Debug.Log ("DIE DIE DIE!");
+		foreach (GameObject player in playersInRoom) {
+			AIComponent p = player.GetComponent<AIComponent> ();
+
+		}
+		spreadingVirus = false;
 	}
 }
