@@ -13,8 +13,8 @@ public class AIComponent : MonoBehaviour {
 	int RESIL_MIN = 70;
 	int RESIL_MAX = 100;
 
-	float SYMP_MIN = 20.0f;
-	float SYMP_MAX = 30.0f;
+	float SYMP_MIN = 10.0f;
+	float SYMP_MAX = 20.0f;
 
 	//The max amount of time an AI will stay still
 	int loiterThreshold;
@@ -32,13 +32,14 @@ public class AIComponent : MonoBehaviour {
 	public bool isInfected = false;
 	public bool isSymptomatic = false;
 
-
+	bool sneezing = false;
 
 	//Components
 	AIBehaviour behaviour;
 	NavMeshAgent meshAgent;
 	MeshRenderer meshRenderer;
 	public Material infectedMat;
+	Canvas canvas;
 
 	Transform destination;
 	public GameObject currentRoom;
@@ -102,17 +103,18 @@ public class AIComponent : MonoBehaviour {
 		}
 			
 		if (isInfected) {
+			//Makes sure the material changes
+			//Not necessary, just for debug
 			if (meshRenderer.material != infectedMat)
 				meshRenderer.material = infectedMat;
-				
-			if (!isSymptomatic) {
-				//Debug.Log ("When they will become symptomatic: " + symptomaticTime);
-				if (Time.time - becomingSymptomatic >= symptomaticTime) {
-					isSymptomatic = true;
-				}
+
+			//If not symptomatic and not 'sneezing' do so for the first time
+			if (!isSymptomatic && !sneezing) {
+				StartCoroutine (Sneezing (true));
 			} else{
+				if (!sneezing)
+					StartCoroutine (Sneezing ());
 				// death will happen
-				// show some symptoms?
 			}
 		}
 
@@ -121,5 +123,20 @@ public class AIComponent : MonoBehaviour {
 	public void Infect(){
 		meshRenderer.material = infectedMat;
 		becomingSymptomatic = Time.time;
+	}
+
+	IEnumerator Sneezing(bool first = false){
+		sneezing = true;
+		float wait = Random.Range (SYMP_MIN, SYMP_MAX);
+		//First time displaying symptoms takes an extra 10s
+		if (first)
+			wait += 10f;
+		yield return new WaitForSeconds (wait);
+		Debug.Log ("ACHOO!");
+		if (first)
+			isSymptomatic = true;
+		sneezing = false;
+
+
 	}
 }

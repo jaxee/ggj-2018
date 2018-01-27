@@ -9,12 +9,18 @@ public class Interact : MonoBehaviour {
 	Animator anim;
 	NavMeshObstacle meshObs;
 	Manager manager;
+	bool isDoor;
 
 	void Start(){
 		meshRender = GetComponent<MeshRenderer> ();
 		anim = GetComponent<Animator> ();
 		meshObs = GetComponent<NavMeshObstacle> ();
 		manager = GameObject.FindObjectOfType<Manager> ();
+		if (tag == "Door") {
+			isDoor = true;
+		} else {
+			isDoor = false;
+		}
 	}
 
 	void OnMouseEnter(){
@@ -26,16 +32,21 @@ public class Interact : MonoBehaviour {
 	}
 
 	void OnMouseDown(){
-		TriggerDoor ();
+		Trigger ();
 	}
 
-	public void TriggerDoor(){
-		meshObs.enabled = !meshObs.enabled;
-		anim.SetTrigger ("door_toggle");
-		if (!Manager.doors.Contains (this)) {
-			Manager.doors.Add (this);
-		} else {
-			Manager.doors.Remove (this);
+	public void Trigger(){
+		if(meshObs != null)
+			meshObs.enabled = !meshObs.enabled;
+		
+		anim.SetTrigger ("toggle");
+
+		if (isDoor) {
+			if (!Manager.doors.Contains (this)) {
+				Manager.doors.Add (this);
+			} else {
+				Manager.doors.Remove (this);
+			}
 		}
 
 	}

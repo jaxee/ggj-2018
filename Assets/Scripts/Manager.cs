@@ -48,7 +48,7 @@ public class Manager : MonoBehaviour {
 	//Opens the first door in the list if the list exceeds max count
 	public void CheckDoors(){
 		if (doors.Count > maxDoorsClosed) {
-			doors [0].TriggerDoor ();
+			doors [0].Trigger ();
 		}
 	}
 }
