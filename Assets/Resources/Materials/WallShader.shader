@@ -2,7 +2,8 @@
 	Properties 
 	{ 
 		_Color ("Main Color", Color) = (1,1,1,1) 
-		_MainTex ("Base (RGB) Gloss (A)", 2D) = "white" {} 
+		_Color2 ("Non-Wall Color", Color) = (1,1,1,1) 
+		//_MainTex ("Base (RGB) Gloss (A)", 2D) = "white" {} 
 	}
 	Category 
  	{
@@ -17,8 +18,10 @@
 		     }
 		     Pass 
 		     {
-		         ZTest Less          
-		         SetTexture [_MainTex] {combine texture}
+		         ZTest Less 
+		         Lighting Off
+		         Color [_Color2]         
+		         //SetTexture [_MainTex] {combine texture}
 		     }
 
 		 }

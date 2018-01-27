@@ -34,11 +34,21 @@ public class CamControl : MonoBehaviour {
 		Vector2 screenCenter = new Vector2 (Screen.width / 2, Screen.height / 2);
 		Vector2 centerToCursor = new Vector2(Input.mousePosition.x, Input.mousePosition.y) - screenCenter;
 		Vector3 addedPos = new Vector3(centerToCursor.x * ((float)Screen.height / (float)Screen.width), centerToCursor.y, 0) / (Screen.height / 6f);
-		if (addedPos.magnitude > 0.75f) {
-			addedPos.x -= (addedPos.x / addedPos.magnitude) * 0.75f;
-			addedPos.y -= (addedPos.y / addedPos.magnitude) * 0.75f;
-			transform.position += addedPos;
-		}
+
+		/*
+		if (Mathf.Abs(addedPos.x) > 0.35f)
+			addedPos.x -= 0.35f;
+		else
+			addedPos.x = 0;
+		
+		if (Mathf.Abs(addedPos.y) > 0.35f)
+			addedPos.y -= 0.35f;
+		else
+			addedPos.y = 0;
+		*/
+
+		if(addedPos.magnitude > 0.5f)
+			transform.position = Vector3.Lerp(transform.position, transform.position + addedPos, Time.deltaTime * 25f);
 
 		
 	}
