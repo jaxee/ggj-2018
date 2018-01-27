@@ -17,7 +17,7 @@ public class CamControl : MonoBehaviour {
 		} else if (Input.mouseScrollDelta.y < 0f) {
 			cam.orthographicSize += 4;
 		}
-		cam.orthographicSize = Mathf.Clamp (cam.orthographicSize, 10f, 75f);
+		cam.orthographicSize = Mathf.Clamp (cam.orthographicSize, 20f, 75f);
 		/*
 		if (Input.mousePosition.x < Screen.width / 6f) {
 			transform.position += 2f * -transform.right;
@@ -49,6 +49,8 @@ public class CamControl : MonoBehaviour {
 
 		if(addedPos.magnitude > 0.5f)
 			transform.position = Vector3.Lerp(transform.position, transform.position + addedPos, Time.deltaTime * 25f);
+
+		transform.position = new Vector3 (Mathf.Clamp (transform.position.x, -150f, 50f), Mathf.Clamp (transform.position.y, 60f, 220f), transform.position.z);
 
 		
 	}

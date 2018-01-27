@@ -13,8 +13,8 @@ public class AIComponent : MonoBehaviour {
 	int RESIL_MIN = 70;
 	int RESIL_MAX = 100;
 
-	float SYMP_MIN = 1200.0f;
-	float SYMP_MAX = 7200.0f;
+	float SYMP_MIN = 20.0f;
+	float SYMP_MAX = 30.0f;
 
 	//The max amount of time an AI will stay still
 	int loiterThreshold;
@@ -27,11 +27,12 @@ public class AIComponent : MonoBehaviour {
 
 	// How long after infected does the player become symptomatic
 	private float symptomaticTime = 0.0f;
+	private float becomingSymptomatic = 0;
 
 	public bool isInfected = false;
 	public bool isSymptomatic = false;
 
-	private int becomingSymptomatic = 0;
+
 
 	//Components
 	AIBehaviour behaviour;
@@ -103,13 +104,12 @@ public class AIComponent : MonoBehaviour {
 		if (isInfected) {
 			if (meshRenderer.material != infectedMat)
 				meshRenderer.material = infectedMat;
+				
 			if (!isSymptomatic) {
 				//Debug.Log ("When they will become symptomatic: " + symptomaticTime);
-				if (becomingSymptomatic >= symptomaticTime) {
+				if (Time.time - becomingSymptomatic >= symptomaticTime) {
 					isSymptomatic = true;
 				}
-
-				becomingSymptomatic++;
 			} else{
 				// death will happen
 				// show some symptoms?
@@ -120,6 +120,6 @@ public class AIComponent : MonoBehaviour {
 
 	public void Infect(){
 		meshRenderer.material = infectedMat;
-
+		becomingSymptomatic = Time.time;
 	}
 }
