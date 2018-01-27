@@ -42,7 +42,6 @@ public class Room : MonoBehaviour {
 			if (!player.currentRoom == gameObject) {
 				playersInRoom.Add (c.gameObject);
 				c.GetComponent<AIComponent> ().currentRoom = gameObject;
-				Debug.Log ("Player " + c.name + " entered " + name);
 			}
 		}
 	}

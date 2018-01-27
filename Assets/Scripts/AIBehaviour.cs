@@ -20,6 +20,7 @@ public class AIBehaviour : MonoBehaviour {
 	void Start()
 	{
 		roomsGO = GameObject.FindGameObjectsWithTag ("Room");
+
 		for (int i = 0; i < roomsGO.Length; i++) {
 			rooms.Add(roomsGO[i].GetComponent<Room>());
 		}
@@ -39,7 +40,7 @@ public class AIBehaviour : MonoBehaviour {
 
 	public Transform SetLoiterDestination(GameObject targetRoom){
 		Room room = targetRoom.GetComponent<Room> ();
-		return room.loiterNodes[Random.Range (0, room.loiterNodes.Count)];;
+		return room.loiterNodes[Random.Range (0, room.loiterNodes.Count)];
 	}
 
 	public Transform Decide(GameObject currentRoom, int roamChance){

@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class AIComponent : MonoBehaviour {
-	int LOITER_THRESHOLD_MIN = 10;
-	int LOITER_THRESHOLD_MAX = 20;
+	int LOITER_THRESHOLD_MIN = 5;
+	int LOITER_THRESHOLD_MAX = 10;
 
-	int ROAM_PERCENT_MIN = 10;
-	int ROAM_PERCENT_MAX = 30;
+	int ROAM_PERCENT_MIN = 30;
+	int ROAM_PERCENT_MAX = 50;
 
 	float RESIL_MIN;
 	float RESIL_MAX;
@@ -51,23 +51,26 @@ public class AIComponent : MonoBehaviour {
 	void Update () {
 		//Will decide whether or not to move every ~1s.
 		if (frameCount >= 60) {
-			Debug.Log ("Update");
 			frameCount = 0;
 			//If a random number between 0 and the remaining loiter time is 1, Decide whether to wander in the same room, or move to a different room
-			if (Random.Range (0, loiterTime) == 1) {
-				destination = behaviour.Decide (currentRoom, roamChance);
-				loiterTime = loiterThreshold;
-			} else {
-				loiterTime = Mathf.Clamp (--loiterTime, 1, LOITER_THRESHOLD_MAX);
+			if (meshAgent.velocity.magnitude < 0.5f) {
+				if (Random.Range (0, loiterTime) == 1) {
+					destination = behaviour.Decide (currentRoom, roamChance);
+					loiterTime = loiterThreshold;
+				} else {
+					loiterTime--;
+					loiterTime = Mathf.Clamp (loiterTime, 2, LOITER_THRESHOLD_MAX);
+				}
 			}
 		} else {
 			frameCount++;
 		}
-		
 		//Consume the destination by putting it into the meshAgent
 		if (destination != null) {
 			meshAgent.destination = destination.position;
+			meshAgent.isStopped = false;
 			destination = null;
 		}
+
 	}
 }
