@@ -13,8 +13,8 @@ public class AIComponent : MonoBehaviour {
 	int RESIL_MIN = 70;
 	int RESIL_MAX = 100;
 
-	float SYMP_MIN = 1200.0f;
-	float SYMP_MAX = 7200.0f;
+	float SYMP_MIN = 10.0f;
+	float SYMP_MAX = 20.0f;
 
 	//The max amount of time an AI will stay still
 	int loiterThreshold;
@@ -27,17 +27,19 @@ public class AIComponent : MonoBehaviour {
 
 	// How long after infected does the player become symptomatic
 	private float symptomaticTime = 0.0f;
+	private float becomingSymptomatic = 0;
 
 	public bool isInfected = false;
 	public bool isSymptomatic = false;
 
-	private int becomingSymptomatic = 0;
+	bool sneezing = false;
 
 	//Components
 	AIBehaviour behaviour;
 	NavMeshAgent meshAgent;
 	MeshRenderer meshRenderer;
 	public Material infectedMat;
+	Canvas canvas;
 
 	Transform destination;
 	public GameObject currentRoom;
@@ -55,6 +57,7 @@ public class AIComponent : MonoBehaviour {
 		behaviour = GetComponent<AIBehaviour> ();
 		meshAgent = GetComponent<NavMeshAgent> ();
 		meshRenderer = GetComponent<MeshRenderer> ();
+		canvas = GetComponent<Canvas> ();
 
 		//Different AI will tend to move around more often than others.
 		loiterThreshold = Random.Range (LOITER_THRESHOLD_MIN, LOITER_THRESHOLD_MAX);
@@ -101,18 +104,18 @@ public class AIComponent : MonoBehaviour {
 		}
 			
 		if (isInfected) {
+			//Makes sure the material changes
+			//Not necessary, just for debug
 			if (meshRenderer.material != infectedMat)
 				meshRenderer.material = infectedMat;
-			if (!isSymptomatic) {
-				//Debug.Log ("When they will become symptomatic: " + symptomaticTime);
-				if (becomingSymptomatic >= symptomaticTime) {
-					isSymptomatic = true;
-				}
 
-				becomingSymptomatic++;
+			//If not symptomatic and not 'sneezing' do so for the first time
+			if (!isSymptomatic && !sneezing) {
+				StartCoroutine (Sneezing (true));
 			} else{
+				if (!sneezing)
+					StartCoroutine (Sneezing ());
 				// death will happen
-				// show some symptoms?
 			}
 		}
 
@@ -120,6 +123,21 @@ public class AIComponent : MonoBehaviour {
 
 	public void Infect(){
 		meshRenderer.material = infectedMat;
+		becomingSymptomatic = Time.time;
+	}
+
+	IEnumerator Sneezing(bool first = false){
+		sneezing = true;
+		float wait = Random.Range (SYMP_MIN, SYMP_MAX);
+		//First time displaying symptoms takes an extra 10s
+		if (first)
+			wait += 10f;
+		yield return new WaitForSeconds (wait);
+		Debug.Log ("ACHOO!");
+		if (first)
+			isSymptomatic = true;
+		sneezing = false;
+
 
 	}
 }
