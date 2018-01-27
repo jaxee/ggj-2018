@@ -162,7 +162,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 260599559
+  randomSeed: -195229963
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3429,7 +3429,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 721338786
+  randomSeed: 1679040555
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6691,7 +6691,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -818552487
+  randomSeed: -1815432578
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6843,7 +6843,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 5
       minScalar: 0.25
       maxCurve:
         serializedVersion: 2
@@ -7349,9 +7349,9 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.2702713
-          inSlope: 0.62183404
-          outSlope: 0.62183404
+          value: 0.18919337
+          inSlope: 0.2557284
+          outSlope: 0.2557284
           tangentMode: 0
         - serializedVersion: 2
           time: 1
@@ -8051,7 +8051,7 @@ ParticleSystem:
     enabled: 0
     multiplier: 1
   ClampVelocityModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -10017,7 +10017,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: ff478a127e05c9b44ad64c3cba925c81, type: 2}
+  - {fileID: 2100000, guid: 10c3c4da2cb6c814cac265881c6a9039, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -10037,7 +10037,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 4
+  m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -10046,7 +10046,7 @@ ParticleSystemRenderer:
   m_LengthScale: 2
   m_SortingFudge: 0
   m_NormalDirection: 1
-  m_RenderAlignment: 1
+  m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
