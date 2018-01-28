@@ -1433,6 +1433,106 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1269858063}
   m_Script: {fileID: 11500000, guid: 11c16b978e956411db90dc421e78ad6e, type: 3}
+--- !u!1001 &312053987
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224095675093615158, guid: 9d805536df0f5ee4a9a8fc677618f3aa,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9d805536df0f5ee4a9a8fc677618f3aa, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &317543914
 Prefab:
   m_ObjectHideFlags: 0
@@ -4615,7 +4715,132 @@ MonoBehaviour:
   - {fileID: 1366308622}
   numberOfPeople: 30
   difficulty: 1
+  numberOfSickPeople: 0
+  numberOfHealthyPeople: 0
   person: {fileID: 1564335697416558, guid: df93e5e81c67f39499e405024d708f4b, type: 2}
+  listOfNames:
+  - Steve
+  - Belinda
+  - Jim
+  - Wendy
+  - Pat
+  - Kat
+  - Darcy
+  - Jackson
+  - Linda
+  - Dervus
+  - David
+  - Muriel
+  - Mortimer
+  - Chauncy
+  - Clark
+  - Kent
+  - Bruce
+  - Wayne
+  - Milles
+  - Peter
+  - Sandra
+  - Debora
+  - Winston
+  - Chris
+  - Jenny
+  - Wilson
+  - Amanda
+  - Ariel
+  - Rotunda
+  - Bill
+  - Bobby
+  - Craig
+  - Crumpit
+  - Apple
+  - Tigress
+  - Roberta
+  - Timantha
+  - RicK
+  - MortY
+  - Timmy
+  - Wilis
+  - Darvey
+  - Liam
+  - Micheal
+  - Barbora
+  - Ellies
+  - Vanesa
+  - Vincent
+  - Bertha
+  - Lisa
+  - Simmons
+  - Pork Chop
+  - Gabriel
+  - Potato Henry
+  - Ol Burby
+  - Regular Ruddy
+  - Wild Urp
+  - Abnormal Ruddy
+  - Patricia
+  - Spaghett
+  listOfFacts:
+  - Explores air vents
+  - Eats glue
+  - Paints with hammers
+  - Collects porcelain ducks
+  - Afraid of aluminum cans
+  - Thinks parents are trees
+  - 'Accidental astronaut '
+  - 'Dreams of pudding '
+  - Is allergic to cork
+  - Spiritually understands
+  - 'Can''t taste bananas '
+  - Is blind
+  - ERROR CLASSIFIED
+  - Great lover
+  - Was in a frat
+  - 'Loves hamster parfaits '
+  - 'Invented chocolate '
+  - Is confused
+  - SO LOST
+  - Time Traveler
+  - Circus Clown
+  - Back seat driver
+  - Channels a dead duck
+  - Bad at poker
+  - Picks nose passionatly
+  - Cries in parking lots
+  - Speed walks
+  - Chases dogs
+  - Climbs others
+  - Eats detergent
+  - Has glasses
+  - Owns a boat
+  - Claims to be a cat
+  - Loves turtles
+  - AHHHHHH
+  - Knows this is a game
+  - Watches cats fart
+  - Is always late
+  - Knows what you did
+  - COFFEEEEEE!
+  - Has a foot cramp
+  - Is deaf
+  - Is scared
+  - Needs space
+  - <IS NOT A ROBOT/>
+  - Can't even
+  - Has the best words
+  - Has an extra toe
+  - Lifts bro
+  - Wears a tupee
+  - Loves ocelots
+  - Has a spice rub
+  - Is moist
+  - Sweats ketchup
+  - Runs in squares
+  - Has seen shit
+  - Wants to see shit
+  - Sees you
+  - Detects farts
+  consoleTxt: {fileID: 0}
+  scoreTxt: {fileID: 0}
 --- !u!114 &1575604564
 MonoBehaviour:
   m_ObjectHideFlags: 0
