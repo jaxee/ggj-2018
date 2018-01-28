@@ -42,6 +42,10 @@ GameObject:
   - component: {fileID: 23997143028982624}
   - component: {fileID: 95592031365534000}
   - component: {fileID: 114643728827200668}
+  - component: {fileID: 114603263383991850}
+  - component: {fileID: 114286404689619484}
+  - component: {fileID: 82339536552515258}
+  - component: {fileID: 114764878179306126}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -1573,6 +1577,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 11.53, y: 11, z: 8.68}
   m_Center: {x: 0, y: 5, z: 0}
+--- !u!82 &82339536552515258
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1116458697253556}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95592031365534000
 Animator:
   serializedVersion: 3
@@ -1590,6 +1674,34 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114286404689619484
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1116458697253556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d480c3beb30cc49abd0e65e8e8aabd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Audiosource: {fileID: 82339536552515258}
+  m_AudioEvent: {fileID: 11400000, guid: 87787f7af7d7d2c4a9e9573107cdbc81, type: 2}
+  playOnStart: 0
+--- !u!114 &114603263383991850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1116458697253556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d480c3beb30cc49abd0e65e8e8aabd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Audiosource: {fileID: 82339536552515258}
+  m_AudioEvent: {fileID: 11400000, guid: b428eabe205a79045b32e8099d878128, type: 2}
+  playOnStart: 0
 --- !u!114 &114643728827200668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1601,6 +1713,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03866245273fe4453805551df93cc207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  meshObs: {fileID: 0}
+  evacuationPoints: []
+--- !u!114 &114764878179306126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1116458697253556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa209bbd6e509af47bb5c24be22de3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 114603263383991850}
+  - {fileID: 114286404689619484}
 --- !u!114 &114927732847963978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1613,7 +1742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfRoom: 2
-  numberOfDoors: 2
+  doors: []
   loiterNodes:
   - {fileID: 4901136110761606}
   - {fileID: 4178072348643714}
