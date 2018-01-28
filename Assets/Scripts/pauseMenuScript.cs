@@ -29,6 +29,7 @@ public class pauseMenuScript : MonoBehaviour {
 	}
 
 	public void quitGame(){
+		Time.timeScale = 1f;
 		SceneManager.LoadScene (0);
 	}
 }

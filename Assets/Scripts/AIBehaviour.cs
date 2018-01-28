@@ -37,6 +37,7 @@ public class AIBehaviour : MonoBehaviour {
 				}
 			}
 		}
+
 		if (adjacentOpenRooms.Count >= 1) {
 			if (panic)
 				Calm ();
@@ -53,11 +54,7 @@ public class AIBehaviour : MonoBehaviour {
 		
 		Room room = targetRoom.GetComponent<Room> ();
 		Transform dest = room.loiterNodes[Random.Range (0, room.loiterNodes.Count)];
-		UnityEngine.AI.NavMeshPath p = new UnityEngine.AI.NavMeshPath();
-		if (ai.meshAgent.CalculatePath (dest.position, p) && p.status != UnityEngine.AI.NavMeshPathStatus.PathInvalid)
-			return dest;
-		else 
-			return SetLoiterDestination (ai.currentRoom);
+		return dest;
 	}
 
 	public Transform Decide(GameObject currentRoom, int roamChance){
@@ -70,7 +67,7 @@ public class AIBehaviour : MonoBehaviour {
 
 	void Panic(){
 		panic = true;
-		ai.meshAgent.speed = 16f;
+		ai.meshAgent.speed = 20f;
 		ai.LOITER_THRESHOLD_MIN = 2;
 		ai.LOITER_THRESHOLD_MAX = 3;
 		ai.ROAM_PERCENT_MIN = 80;
@@ -79,7 +76,7 @@ public class AIBehaviour : MonoBehaviour {
 
 	void Calm(){
 		panic = false;
-		ai.meshAgent.speed = 7f;
+		ai.meshAgent.speed = 9f;
 		ai.LOITER_THRESHOLD_MIN = 5;
 		ai.LOITER_THRESHOLD_MAX = 8;
 		ai.ROAM_PERCENT_MIN = 40;
