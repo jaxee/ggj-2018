@@ -49,28 +49,37 @@ public class Interact : MonoBehaviour {
 			isDoor = true;
 		} else if (tag == "Escape") {
 			isEscapePod = true;
-		}
+		} else if (tag == "Airlock") {
+			isAirLock = true;
+		} else
+			isScanner = true;
 		oldColor = meshRender.material.color;
 	}
 
 	void OnMouseEnter(){
+		if(interactable)
+		{
 		meshRender.enabled = true;
-		if (Manager.doors.Count == manager.maxDoorsClosed) {
-			Manager.doors [0].meshRender.enabled = true;
-			Manager.doors [0].meshRender.material.color = new Color (1f, 0f, 0f, 0.5f);
+			if (Manager.doors.Count == manager.maxDoorsClosed) {
+				Manager.doors [0].meshRender.enabled = true;
+				Manager.doors [0].meshRender.material.color = new Color (1f, 0f, 0f, 0.5f);
+			}
 		}
 	}
 
 	void OnMouseExit(){
-		meshRender.enabled = false;
-		if (Manager.doors.Count >= manager.maxDoorsClosed) {
-			Manager.doors [0].meshRender.enabled = false;
-			Manager.doors [0].meshRender.material.color = oldColor;
+		if (interactable) {
+			meshRender.enabled = false;
+			if (Manager.doors.Count >= manager.maxDoorsClosed) {
+				Manager.doors [0].meshRender.enabled = false;
+				Manager.doors [0].meshRender.material.color = oldColor;
+			}
 		}
 	}
 
 	void OnMouseDown(){
-		Trigger ();
+		if (interactable)
+			Trigger ();
 	}
 
 	public void Trigger(){
@@ -109,8 +118,11 @@ public class Interact : MonoBehaviour {
 				if (!d.meshObs.enabled) {
 					d.anim.SetTrigger ("toggle");
 					d.meshObs.enabled = true;
-					Destroy (d);
+
+					//Destroy (d);
 				}
+				Manager.doors.Remove (d);
+				d.interactable = false;
 			}
 
 			if (currentRoom.playersInRoom.Count == 0) {
@@ -128,6 +140,15 @@ public class Interact : MonoBehaviour {
 
 				}
 			}
+		}
+
+		if (isAirLock) {
+			StartCoroutine (DoAirlockStuff ());
+		}
+
+		if (isScanner && canScan) {
+			StartCoroutine (DoScannerStuff());
+			canScan = false;
 		}
 
 	}
@@ -184,8 +205,8 @@ public class Interact : MonoBehaviour {
 			if (!d.meshObs.enabled) {
 				d.anim.SetTrigger ("toggle");
 				d.meshObs.enabled = true;
-				d.interactable = false;
 			}
+			d.interactable = false;
 		}
 	}
 
@@ -213,7 +234,9 @@ public class Interact : MonoBehaviour {
 	}
 
 	IEnumerator ScannerCooldown(){
+		interactable = false;
 		yield return new WaitForSeconds (scannerCD);
+		interactable = true;
 		canScan = true;
 		anim.SetTrigger ("toggle");
 	}
