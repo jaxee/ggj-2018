@@ -1929,7 +1929,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfRoom: 0
-  numberOfDoors: 0
+  doors:
+  - {fileID: 0}
+  - {fileID: 0}
+  connectedRooms: []
   loiterNodes:
   - {fileID: 4734007380948678}
   - {fileID: 4516699539568352}
