@@ -11,10 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc61530846aa0ea47ad360ea688fea92, type: 3}
   m_Name: SAE_Button
   m_EditorClassIdentifier: 
-  clips: []
+  clips:
+  - {fileID: 8300000, guid: 5490e071836221e4a9ab77de832870bc, type: 3}
   volume:
-    minValue: 0
-    maxValue: 0
+    minValue: 0.49793684
+    maxValue: 0.93122417
   pitch:
-    minValue: 0
-    maxValue: 0
+    minValue: 0.66024756
+    maxValue: 1.4910592
