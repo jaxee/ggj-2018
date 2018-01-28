@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -93,7 +94,7 @@ public class AIComponent : MonoBehaviour {
 
 	//TODO: don't run while moving
 	void Update () {
-		if (!isBoarding) {
+		if (!isBoarding && meshAgent != null) {
 			//Will decide whether or not to move every ~1s.
 			if (frameCount >= 60) {
 				frameCount = 0;
@@ -125,9 +126,9 @@ public class AIComponent : MonoBehaviour {
 			if (isInfected) {
 				//Makes sure the material changes
 				//Not necessary, just for debug
-				if (meshRenderer.material != infectedMat) {
-					meshRenderer.material = infectedMat;
-				}
+				// if (meshRenderer.material != infectedMat) {
+				// 	meshRenderer.material = infectedMat;
+				// }
 				currentDeathCount = Time.time - deathTimer;
 				//If not symptomatic and not 'sneezing' do so for the first time
 				if (!isSymptomatic && !sneezing) {
@@ -179,4 +180,3 @@ public class AIComponent : MonoBehaviour {
 		manager.ShowName (personName, personFact);
 	}
 }
-

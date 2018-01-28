@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,16 @@ public class Interact : MonoBehaviour {
 	bool isDoor;
 	bool isAirLock;
 	bool isScanner;
+
+	//You'll float too
+	float airlockCD = 15f;
+	float airlockTimer;
+	bool airlockOpen = false;
+
+	float scannerCD = 30f;
+	bool canScan = true;
+
+	bool interactable = true;
 
 	// Escape pod variables
 	bool isEscapePod;
@@ -142,5 +153,65 @@ public class Interact : MonoBehaviour {
 				manager.EscapePodLaunched (posScoreDiff, negScoreDiff);
 			}
 		}
+	}
+
+
+	IEnumerator DoAirlockStuff(){
+		yield return new WaitForSeconds (1f);
+		airlockTimer = Time.time;
+		airlockOpen = true;
+		SealDoors ();
+		transform.root.GetComponentInChildren<ParticleSystem> ().Play ();
+		foreach (GameObject player in currentRoom.playersInRoom) {
+			AIComponent p = player.GetComponent<AIComponent> ();
+			Destroy (p.meshAgent);
+			p.pull = true;
+			Rigidbody rb = p.GetComponent<Rigidbody> ();
+			rb.constraints = RigidbodyConstraints.None;
+			rb.useGravity = false;
+			rb.drag = 0f;
+			rb.angularDrag = 0f;
+		}
+	}
+
+	void SealDoors(){
+		currentRoom = transform.root.GetComponent<Room> ();
+		foreach (GameObject door in currentRoom.doors) {
+			Interact d = door.GetComponent<Interact> ();
+			if (!d.meshObs.enabled) {
+				d.anim.SetTrigger ("toggle");
+				d.meshObs.enabled = true;
+				d.interactable = false;
+			}
+		}
+	}
+
+	IEnumerator DoScannerStuff(){
+		SealDoors ();
+		yield return new WaitForSeconds (1.5f);
+		scan [0].Play ();
+		scan [1].Play ();
+		foreach (GameObject player in currentRoom.playersInRoom) {
+			AIComponent ai = player.GetComponent<AIComponent> ();
+			if (ai.isInfected) {
+				Instantiate (sick, ai.transform.position + Vector3.up * 4, Quaternion.identity, ai.transform);
+			}
+		}
+		StartCoroutine (UnlockDoors ());
+		StartCoroutine (ScannerCooldown ());
+	}
+
+	IEnumerator UnlockDoors(){
+		yield return new WaitForSeconds (1.5f);
+		foreach (GameObject door in currentRoom.doors) {
+			Interact d = door.GetComponent<Interact> ();
+			d.interactable = true;
+		}
+	}
+
+	IEnumerator ScannerCooldown(){
+		yield return new WaitForSeconds (scannerCD);
+		canScan = true;
+		anim.SetTrigger ("toggle");
 	}
 }

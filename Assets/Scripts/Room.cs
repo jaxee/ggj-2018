@@ -10,7 +10,7 @@ public class Room : MonoBehaviour {
 	public List<Transform> loiterNodes = new List<Transform>();
 	public List<GameObject> playersInRoom = new List<GameObject>();
 
-	float virusSpreadTime = 5f;
+	float virusSpreadTime = 4f;
 	bool spreadingVirus = false;
 	int numOfInfectedPlayers = 0;
 

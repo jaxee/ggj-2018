@@ -149,8 +149,12 @@ MonoBehaviour:
   isInfected: 0
   isSymptomatic: 0
   isBoarding: 0
+<<<<<<< HEAD
   personName: 
   personFact: 
+=======
+  pull: 0
+>>>>>>> ababab3223071dd7427acd457a4559c16e478415
   meshAgent: {fileID: 0}
   infectedMat: {fileID: 2100000, guid: f4d92d156604c804ca4fecca8f7a9097, type: 2}
   sick_Particles: {fileID: 1269828858590394, guid: e6a21e32c2c50194bbe55e224fdf0d59,
@@ -180,7 +184,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 5
+  m_Speed: 7
   m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 120
