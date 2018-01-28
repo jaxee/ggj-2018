@@ -23,7 +23,7 @@ public class Room : MonoBehaviour {
 		//Gets a list of all the rooms connected to this room.
 		connectedRooms.Clear ();
 		foreach (GameObject door in doors) {
-			Room room = door.transform.root.GetComponent<Room> ();
+			Room room = door.transform.root.gameObject.GetComponent<Room> ();
 			if (!connectedRooms.Contains (room) && room != this)
 				connectedRooms.Add (room);
 		}
