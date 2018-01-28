@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class AIComponent : MonoBehaviour {
 	int LOITER_THRESHOLD_MIN = 5;
@@ -41,11 +42,15 @@ public class AIComponent : MonoBehaviour {
 	bool sneezing = false;
 	public bool isBoarding = false;
 
+	public string personName = null;
+	public string personFact = null;
+
 	//Components
 	AIBehaviour behaviour;
 	public NavMeshAgent meshAgent;
 	MeshRenderer meshRenderer;
 	Canvas canvas;
+	Manager manager;
 
 	public Material infectedMat;
 	public GameObject sick_Particles;
@@ -56,19 +61,17 @@ public class AIComponent : MonoBehaviour {
 
 	//AIBehaviour.State currentState = AIBehaviour.State.Loiter;
 
-
-
 	int loiterTime;
-
 	int frameCount = 0;
+
 
 	// Use this for initialization
 	void Start () {
-
 		behaviour = GetComponent<AIBehaviour> ();
 		meshAgent = GetComponent<NavMeshAgent> ();
 		meshRenderer = GetComponent<MeshRenderer> ();
 		canvas = GetComponent<Canvas> ();
+		manager = GameObject.FindObjectOfType<Manager> ();
 
 		//Different AI will tend to move around more often than others.
 		loiterThreshold = Random.Range (LOITER_THRESHOLD_MIN, LOITER_THRESHOLD_MAX);
@@ -166,6 +169,11 @@ public class AIComponent : MonoBehaviour {
 	public void destoryPlayer () {
 		currentRoom.GetComponent<Room> ().playersInRoom.Remove (gameObject);
 		Destroy (gameObject);
+	}
+
+	void OnMouseOver()
+	{
+		manager.ShowName (personName, personFact);
 	}
 }
 

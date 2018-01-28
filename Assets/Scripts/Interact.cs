@@ -20,6 +20,8 @@ public class Interact : MonoBehaviour {
 	bool isEscapePodBoarding;
 	static System.Random escapePodEntrance = new System.Random();
 	public List<GameObject> evacuationPoints = new List<GameObject>();
+	int negScoreDiff;
+	int posScoreDiff;
 
 	void Start(){
 		meshRender = GetComponent<MeshRenderer> ();
@@ -58,6 +60,9 @@ public class Interact : MonoBehaviour {
 	}
 
 	public void Trigger(){
+		posScoreDiff = 0;
+		negScoreDiff = 0;
+
 		if(meshObs != null)
 			meshObs.enabled = !meshObs.enabled;
 		
@@ -72,6 +77,12 @@ public class Interact : MonoBehaviour {
 			if (Manager.doors.Count >= manager.maxDoorsClosed) {
 				Manager.doors [0].meshRender.enabled = false;
 				Manager.doors [0].meshRender.material.color = oldColor;
+			}
+
+			if (this.meshObs.enabled) {
+				manager.OpenDoor ();
+			} else {
+				manager.CloseDoor ();
 			}
 		}
 			
@@ -90,6 +101,7 @@ public class Interact : MonoBehaviour {
 
 			if (currentRoom.playersInRoom.Count == 0) {
 				Debug.Log ("LAUNCH SHIP ANIMATION");
+				manager.EscapePodLaunched (posScoreDiff, negScoreDiff);
 			} else {
 				foreach(GameObject player in currentRoom.playersInRoom) {
 					AIComponent p = player.GetComponent<AIComponent> ();
@@ -107,13 +119,24 @@ public class Interact : MonoBehaviour {
 	}
 
 	public void OnTriggerEnter(Collider c){
+
 		if (c.tag == "Player" && isEscapePodBoarding) {
 			//Collect players, do points and destroy player game object
 			Debug.Log("Collect player: " + c.name);
-			c.GetComponent<AIComponent>().destoryPlayer();
+
+			AIComponent player = c.GetComponent<AIComponent>();
+			if (player.isInfected) {
+				negScoreDiff += manager.removePoints ();
+			} else {
+				manager.addPoints ();
+				posScoreDiff += manager.addPoints ();
+			}
+
+			player.destoryPlayer();
 
 			if (currentRoom.playersInRoom.Count == 0) {
 				Debug.Log ("LAUNCH SHIP ANIMATION");
+				manager.EscapePodLaunched (posScoreDiff, negScoreDiff);
 			}
 		}
 	}

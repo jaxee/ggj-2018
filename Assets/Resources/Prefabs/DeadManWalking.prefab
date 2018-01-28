@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114757811684581300}
   - component: {fileID: 114241692186366638}
   - component: {fileID: 54931688802726682}
+  - component: {fileID: 114030005661532780}
   m_Layer: 0
   m_Name: DeadManWalking
   m_TagString: Player
@@ -55,6 +56,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -70,6 +72,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -100,6 +103,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 1
+--- !u!114 &114030005661532780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564335697416558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!114 &114241692186366638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,9 +144,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704cfd98233cb0448c5e936826141ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentDeathCount: 0
   resilience: 0
   isInfected: 0
   isSymptomatic: 0
+  isBoarding: 0
+  personName: 
+  personFact: 
+  meshAgent: {fileID: 0}
   infectedMat: {fileID: 2100000, guid: f4d92d156604c804ca4fecca8f7a9097, type: 2}
   sick_Particles: {fileID: 1269828858590394, guid: e6a21e32c2c50194bbe55e224fdf0d59,
     type: 2}
