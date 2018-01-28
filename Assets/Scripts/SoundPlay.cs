@@ -8,6 +8,12 @@ public class SoundPlay : MonoBehaviour {
 
 	public bool playOnStart = true;
 
+	void Awake(){
+		if (m_Audiosource == null) {
+			m_Audiosource = GetComponent<AudioSource> ();
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		if (playOnStart) {
