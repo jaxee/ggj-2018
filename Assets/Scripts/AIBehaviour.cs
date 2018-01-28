@@ -8,6 +8,7 @@ public class AIBehaviour : MonoBehaviour {
 	private GameObject[] roomsGO;
 	public static List<Room> rooms = new List<Room>();
 	AIComponent ai;
+	Manager manager;
 
 	public enum State{
 		Loiter,
@@ -19,6 +20,7 @@ public class AIBehaviour : MonoBehaviour {
 
 	void Start()
 	{
+		manager = GameObject.FindObjectOfType<Manager> ();
 		ai = GetComponent<AIComponent> ();
 		roomsGO = GameObject.FindGameObjectsWithTag ("Room");
 
@@ -28,13 +30,24 @@ public class AIBehaviour : MonoBehaviour {
 	}
 
 	public Transform SetRoamDestination(GameObject currentRoom){
-		Room destRoom;
 		Room currRoom = currentRoom.GetComponent<Room> ();
 		//Select a room at random from our list
-		destRoom = currRoom.connectedRooms [Random.Range (0, currRoom.connectedRooms.Count)];
-
-		//Return a random transform node in the selected room
-		return SetLoiterDestination(destRoom.gameObject);
+		List<Room> adjacentOpenRooms = new List<Room>();
+		foreach (GameObject door in currRoom.doors) {
+			Interact d = door.GetComponent<Interact> ();
+			if (!d.meshObs.enabled) {
+				for (int i = 0; i < manager.rooms.Length; i++) {
+					if (rooms [i] != currRoom && rooms [i].doors.Contains (door)) {
+						adjacentOpenRooms.Add (rooms [i]);
+						break;
+					}
+				}
+			}
+		}
+		if (adjacentOpenRooms.Count >= 1)
+			return SetLoiterDestination (adjacentOpenRooms [Random.Range (0, adjacentOpenRooms.Count)].gameObject);
+		else
+			return SetLoiterDestination (currentRoom);
 	}
 
 	public Transform SetLoiterDestination(GameObject targetRoom){
