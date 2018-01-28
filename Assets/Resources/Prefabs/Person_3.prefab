@@ -223,10 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704cfd98233cb0448c5e936826141ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LOITER_THRESHOLD_MIN: 5
-  LOITER_THRESHOLD_MAX: 8
-  ROAM_PERCENT_MIN: 40
-  ROAM_PERCENT_MAX: 60
+  LOITER_THRESHOLD_MIN: 1
+  LOITER_THRESHOLD_MAX: 2
+  ROAM_PERCENT_MIN: 60
+  ROAM_PERCENT_MAX: 100
   currentDeathCount: 0
   resilience: 0
   isInfected: 0
