@@ -237,8 +237,8 @@ public class Manager : MonoBehaviour {
 			GameObject newPerson = Instantiate (person[Random.Range(0,person.Length)], spawnPos, transform.rotation) as GameObject;
 
 			AIComponent p = newPerson.GetComponent<AIComponent> ();
-			int rn = Random.Range (0, listOfNames.Count-1);
-			int rd = Random.Range (0, listOfFacts.Count-1);
+			int rn = Random.Range (0, listOfNames.Length);
+			int rd = Random.Range (0, listOfFacts.Length);
 
 			p.personName = listOfNames[rn];
 			p.personFact = listOfFacts[rd];
@@ -251,6 +251,7 @@ public class Manager : MonoBehaviour {
 		}
 
 		scoreTxt.text = score.ToString();
+		cam = GameObject.FindObjectOfType<CamControl>();
 
 		//Debug.Log ("Number of People: " + numberOfPeople + " | sick: " + numberOfSickPeople + " healthy: " + numberOfHealthyPeople);
 	}
@@ -277,6 +278,8 @@ public class Manager : MonoBehaviour {
 
 			SceneManager.LoadScene (2);
 		}
+
+		camLock.enabled = cam.scrollLock;
 	}
 
 	//Opens the first door in the list if the list exceeds max count
