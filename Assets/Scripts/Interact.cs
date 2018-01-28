@@ -63,7 +63,7 @@ public class Interact : MonoBehaviour {
 		if(interactable)
 		{
 		meshRender.enabled = true;
-			if (Manager.doors.Count == manager.maxDoorsClosed) {
+			if (Manager.doors.Count == manager.maxDoorsClosed && isDoor) {
 				for (int i = 0; i < Manager.doors.Count; i++) {
 					if (Manager.doors [i].interactable) {
 						Manager.doors [i].meshRender.enabled = true;
@@ -78,7 +78,7 @@ public class Interact : MonoBehaviour {
 	void OnMouseExit(){
 		if (interactable) {
 			meshRender.enabled = false;
-			if (Manager.doors.Count >= manager.maxDoorsClosed) {
+			if (Manager.doors.Count >= manager.maxDoorsClosed && isDoor) {
 				for (int i = 0; i < Manager.doors.Count; i++) {
 					if (Manager.doors [i].interactable) {
 						Manager.doors [i].meshRender.enabled = false;
@@ -96,6 +96,8 @@ public class Interact : MonoBehaviour {
 	}
 
 	public void Trigger(){
+		if (!interactable)
+			return;
 		posScoreDiff = 0;
 		negScoreDiff = 0;
 
@@ -142,7 +144,7 @@ public class Interact : MonoBehaviour {
 				Interact d = door.GetComponent<Interact> ();
 				if (!d.meshObs.enabled) {
 					d.anim.SetTrigger ("toggle");
-					d.meshObs.enabled = true;
+					d.meshObs.enabled = !d.meshObs.enabled;
 
 					//Destroy (d);
 				}
@@ -232,9 +234,10 @@ public class Interact : MonoBehaviour {
 			Interact d = door.GetComponent<Interact> ();
 			if (!d.meshObs.enabled) {
 				d.anim.SetTrigger ("toggle");
-				d.meshObs.enabled = true;
+				d.meshObs.enabled = !d.meshObs.enabled;
 			}
-			d.interactable = false;
+			if(!isScanner)
+				d.interactable = false;
 		}
 	}
 

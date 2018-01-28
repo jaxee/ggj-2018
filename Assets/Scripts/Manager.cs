@@ -263,7 +263,7 @@ public class Manager : MonoBehaviour {
 		scoreTxt.text = score.ToString();
 		rt.sizeDelta = new Vector2(ReMap (numberOfSickPeople, 0, numberOfPeople, 0, healthBarWidth), rt.rect.height);
 
-		Debug.Log ("All: " + numberOfPeople + " | Healthy: " + numberOfHealthyPeople + " Sick: " + numberOfSickPeople);
+		//Debug.Log ("All: " + numberOfPeople + " | Healthy: " + numberOfHealthyPeople + " Sick: " + numberOfSickPeople);
 
 		if (numberOfSickPeople == 0 || numberOfHealthyPeople == 0) {
 

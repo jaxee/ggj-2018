@@ -5,17 +5,17 @@ using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 public class AIComponent : MonoBehaviour {
-	public int LOITER_THRESHOLD_MIN = 5;
-	public int LOITER_THRESHOLD_MAX = 8;
+	public int LOITER_THRESHOLD_MIN = 3;
+	public int LOITER_THRESHOLD_MAX = 5;
 
-	public int ROAM_PERCENT_MIN = 40;
-	public int ROAM_PERCENT_MAX = 60;
+	public int ROAM_PERCENT_MIN = 50;
+	public int ROAM_PERCENT_MAX = 80;
 
-	int RESIL_MIN = 70;
-	int RESIL_MAX = 100;
+	int RESIL_MIN = 60;
+	int RESIL_MAX = 90;
 
-	float SYMP_MIN = 10.0f;
-	float SYMP_MAX = 20.0f;
+	float SYMP_MIN = 5.0f;
+	float SYMP_MAX = 10.0f;
 
 	float DEATH_MIN = 90f;
 	float DEATH_MAX = 120f;
@@ -162,7 +162,7 @@ public class AIComponent : MonoBehaviour {
 		float wait = Random.Range (SYMP_MIN, SYMP_MAX);
 		//First time displaying symptoms takes an extra 10s
 		if (first)
-			wait += 10f;
+			wait += 15f;
 		yield return new WaitForSeconds (wait);
 		Instantiate (sick_Particles, transform.position, Quaternion.identity, transform);
 		if (first)
