@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class AIComponent : MonoBehaviour {
-	int LOITER_THRESHOLD_MIN = 4;
-	int LOITER_THRESHOLD_MAX = 6;
+	int LOITER_THRESHOLD_MIN = 5;
+	int LOITER_THRESHOLD_MAX = 8;
 
-	int ROAM_PERCENT_MIN = 50;
-	int ROAM_PERCENT_MAX = 80;
+	int ROAM_PERCENT_MIN = 40;
+	int ROAM_PERCENT_MAX = 60;
 
-	int RESIL_MIN = 80;
+	int RESIL_MIN = 70;
 	int RESIL_MAX = 100;
 
 	float SYMP_MIN = 10.0f;
 	float SYMP_MAX = 20.0f;
 
-	float DEATH_MIN = 120f;
-	float DEATH_MAX = 180f;
+	float DEATH_MIN = 90f;
+	float DEATH_MAX = 120f;
 	float deathTimeLength;
 	float deathTimer;
 	public float currentDeathCount;
@@ -42,11 +43,15 @@ public class AIComponent : MonoBehaviour {
 	public bool isBoarding = false;
 	public bool pull = false;
 
+	public string personName = null;
+	public string personFact = null;
+
 	//Components
 	AIBehaviour behaviour;
 	public NavMeshAgent meshAgent;
 	MeshRenderer meshRenderer;
 	Canvas canvas;
+	Manager manager;
 
 	public Material infectedMat;
 	public GameObject sick_Particles;
@@ -55,22 +60,19 @@ public class AIComponent : MonoBehaviour {
 	Transform destination;
 	public GameObject currentRoom;
 
-
 	//AIBehaviour.State currentState = AIBehaviour.State.Loiter;
 
-
-
 	int loiterTime;
-
 	int frameCount = 0;
+
 
 	// Use this for initialization
 	void Start () {
-
 		behaviour = GetComponent<AIBehaviour> ();
 		meshAgent = GetComponent<NavMeshAgent> ();
 		meshRenderer = GetComponent<MeshRenderer> ();
 		canvas = GetComponent<Canvas> ();
+		manager = GameObject.FindObjectOfType<Manager> ();
 
 		//Different AI will tend to move around more often than others.
 		loiterThreshold = Random.Range (LOITER_THRESHOLD_MIN, LOITER_THRESHOLD_MAX);
@@ -124,10 +126,9 @@ public class AIComponent : MonoBehaviour {
 			if (isInfected) {
 				//Makes sure the material changes
 				//Not necessary, just for debug
-				/*
-				if (meshRenderer.material != infectedMat) {
-					meshRenderer.material = infectedMat;
-				}*/
+				// if (meshRenderer.material != infectedMat) {
+				// 	meshRenderer.material = infectedMat;
+				// }
 				currentDeathCount = Time.time - deathTimer;
 				//If not symptomatic and not 'sneezing' do so for the first time
 				if (!isSymptomatic && !sneezing) {
@@ -140,7 +141,10 @@ public class AIComponent : MonoBehaviour {
 
 				if (currentDeathCount > deathTimeLength) {
 					Instantiate (death_Particles, transform.position, Quaternion.identity);
+					manager.PlayerDied (personName);
 					destoryPlayer ();
+					manager.numberOfSickPeople--;
+					manager.numberOfPeople--;
 				}
 			}
 		}
@@ -148,7 +152,7 @@ public class AIComponent : MonoBehaviour {
 	}
 
 	public void Infect(){
-		//meshRenderer.material = infectedMat;
+		meshRenderer.material = infectedMat;
 		becomingSymptomatic = Time.time;
 		deathTimer = Time.time;
 	}
@@ -170,5 +174,9 @@ public class AIComponent : MonoBehaviour {
 		currentRoom.GetComponent<Room> ().playersInRoom.Remove (gameObject);
 		Destroy (gameObject);
 	}
-}
 
+	void OnMouseOver()
+	{
+		manager.ShowName (personName, personFact);
+	}
+}

@@ -23,7 +23,7 @@ public class Room : MonoBehaviour {
 		//Gets a list of all the rooms connected to this room.
 		connectedRooms.Clear ();
 		foreach (GameObject door in doors) {
-			Room room = door.transform.root.gameObject.GetComponent<Room> ();
+			Room room = door.transform.root.GetComponent<Room> ();
 			if (!connectedRooms.Contains (room) && room != this)
 				connectedRooms.Add (room);
 		}
@@ -55,11 +55,13 @@ public class Room : MonoBehaviour {
 		spreadingVirus = true;
 		yield return new WaitForSeconds (virusSpreadTime);
 		if (numOfInfectedPlayers > 0) {
+			Manager m = GameObject.FindObjectOfType<Manager> ();
 			foreach (GameObject player in playersInRoom) {
 				AIComponent p = player.GetComponent<AIComponent> ();
 				//Resilience is their %chance to get infected.
 				if (Random.Range (0, 100) > p.resilience && !p.isInfected) {
 					p.isInfected = true;
+					m.numberOfSickPeople++;
 				} else {
 					p.resilience -= numOfInfectedPlayers * 2;
 					p.resilience = Mathf.Clamp (p.resilience, 0, 100);

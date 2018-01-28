@@ -34,6 +34,8 @@ public class Interact : MonoBehaviour {
 	public ParticleSystem[] scan;
 	public GameObject sick;
 
+	int negScoreDiff;
+	int posScoreDiff;
 
 	void Start(){
 		meshRender = GetComponent<MeshRenderer> ();
@@ -47,84 +49,79 @@ public class Interact : MonoBehaviour {
 			isDoor = true;
 		} else if (tag == "Escape") {
 			isEscapePod = true;
-		} else if (tag == "Airlock")
-			isAirLock = true;
-		else
-			isScanner = true;
+		}
 		oldColor = meshRender.material.color;
 	}
 
 	void OnMouseEnter(){
-		if (interactable) {
-			meshRender.enabled = true;
-			if (Manager.doors.Count == manager.maxDoorsClosed && isDoor) {
-				Manager.doors [0].meshRender.enabled = true;
-				Manager.doors [0].meshRender.material.color = new Color (1f, 0f, 0f, 0.5f);
-			}
+		meshRender.enabled = true;
+		if (Manager.doors.Count == manager.maxDoorsClosed) {
+			Manager.doors [0].meshRender.enabled = true;
+			Manager.doors [0].meshRender.material.color = new Color (1f, 0f, 0f, 0.5f);
 		}
 	}
 
 	void OnMouseExit(){
 		meshRender.enabled = false;
-		if (Manager.doors.Count >= manager.maxDoorsClosed && isDoor) {
+		if (Manager.doors.Count >= manager.maxDoorsClosed) {
 			Manager.doors [0].meshRender.enabled = false;
 			Manager.doors [0].meshRender.material.color = oldColor;
 		}
 	}
 
 	void OnMouseDown(){
-		if(interactable)
-			Trigger ();
+		Trigger ();
 	}
 
 	public void Trigger(){
-		if (meshObs != null)
-			meshObs.enabled = !meshObs.enabled;
+		posScoreDiff = 0;
+		negScoreDiff = 0;
 
-		if(!(isScanner && !canScan))
-			anim.SetTrigger ("toggle");
+		if(meshObs != null)
+			meshObs.enabled = !meshObs.enabled;
+		
+		anim.SetTrigger ("toggle");
 
 		if (isDoor) {
-			if (meshObs.enabled) {
-				this.GetComponent<SoundPlayManager> ().PlayOne ();
-			} else {
-				this.GetComponent<SoundPlayManager> ().PlayTwo ();
-			}
-				
-
 			if (!Manager.doors.Contains (this)) {
 				Manager.doors.Add (this);
 			} else {
 				Manager.doors.Remove (this);
 			}
-			if (Manager.doors.Count >= manager.maxDoorsClosed && isDoor) {
+			if (Manager.doors.Count >= manager.maxDoorsClosed) {
 				Manager.doors [0].meshRender.enabled = false;
 				Manager.doors [0].meshRender.material.color = oldColor;
 			}
+
+			if (this.meshObs.enabled) {
+				manager.OpenDoor ();
+			} else {
+				manager.CloseDoor ();
+			}
 		}
-		
+			
 		if (isEscapePod) {
 			isEscapePodBoarding = true;
 
-			currentRoom = transform.parent.GetComponent<Room> ();
+			currentRoom = transform.parent.GetComponent<Room>();
 			foreach (GameObject door in currentRoom.doors) {
 				Interact d = door.GetComponent<Interact> ();
 				if (!d.meshObs.enabled) {
 					d.anim.SetTrigger ("toggle");
 					d.meshObs.enabled = true;
-					Manager.doors.Remove (d);
 					Destroy (d);
 				}
 			}
 
 			if (currentRoom.playersInRoom.Count == 0) {
 				Debug.Log ("LAUNCH SHIP ANIMATION");
+				manager.EscapePodLaunched (posScoreDiff, negScoreDiff);
 			} else {
-				foreach (GameObject player in currentRoom.playersInRoom) {
+				foreach(GameObject player in currentRoom.playersInRoom) {
 					AIComponent p = player.GetComponent<AIComponent> ();
-					int r = escapePodEntrance.Next (evacuationPoints.Count);
-					Debug.Log ("Go to entrance: " + evacuationPoints [r]);
-					p.meshAgent.SetDestination (evacuationPoints [r].transform.position);
+					int r = escapePodEntrance.Next(evacuationPoints.Count);
+					Debug.Log ("Go to entrance: " + evacuationPoints[r]);
+					p.meshAgent.SetDestination (evacuationPoints[r].transform.position);
 					p.meshAgent.isStopped = false;
 					p.meshAgent.speed = 9f;
 					p.isBoarding = true;
@@ -133,43 +130,34 @@ public class Interact : MonoBehaviour {
 			}
 		}
 
-		if (isAirLock) {
-			StartCoroutine (DoAirlockStuff ());
-		}
-
-		if (isScanner && canScan) {
-			StartCoroutine (DoScannerStuff());
-			canScan = false;
-		}
-
-
-	}
-
-	void Update(){
-		//If the airlock is currently open, the cooldown has elapsed, and the room is empty, reset.
-		if (airlockOpen && Time.time - airlockTimer > airlockCD && transform.root.GetComponent<Room>().playersInRoom.Count == 0) {
-			anim.SetTrigger ("toggle");
-			airlockOpen = false;
-			foreach (GameObject door in currentRoom.doors) {
-				Interact d = door.GetComponent<Interact> ();
-				d.interactable = true;
-				d.anim.SetTrigger ("toggle");
-				d.meshObs.enabled = false;
-			}
-		}
 	}
 
 	public void OnTriggerEnter(Collider c){
+
 		if (c.tag == "Player" && isEscapePodBoarding) {
 			//Collect players, do points and destroy player game object
 			Debug.Log("Collect player: " + c.name);
-			c.GetComponent<AIComponent>().destoryPlayer();
+
+			AIComponent player = c.GetComponent<AIComponent>();
+			if (player.isInfected) {
+				negScoreDiff += manager.removePoints ();
+				manager.numberOfSickPeople--;
+			} else {
+				manager.addPoints ();
+				posScoreDiff += manager.addPoints ();
+				manager.numberOfHealthyPeople--;
+			}
+			manager.numberOfPeople--;
+
+			player.destoryPlayer();
 
 			if (currentRoom.playersInRoom.Count == 0) {
 				Debug.Log ("LAUNCH SHIP ANIMATION");
+				manager.EscapePodLaunched (posScoreDiff, negScoreDiff);
 			}
 		}
 	}
+
 
 	IEnumerator DoAirlockStuff(){
 		yield return new WaitForSeconds (1f);
@@ -177,7 +165,6 @@ public class Interact : MonoBehaviour {
 		airlockOpen = true;
 		SealDoors ();
 		transform.root.GetComponentInChildren<ParticleSystem> ().Play ();
-		transform.root.GetComponentInChildren<ParticleSystem> ().gameObject.GetComponent<AudioSource> ().Play ();
 		foreach (GameObject player in currentRoom.playersInRoom) {
 			AIComponent p = player.GetComponent<AIComponent> ();
 			Destroy (p.meshAgent);
