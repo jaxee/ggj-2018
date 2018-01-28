@@ -7,6 +7,7 @@ public class Room : MonoBehaviour {
 	public int typeOfRoom; // 1 is normal, 2 is hazard, 3 is escape
 	private bool[] doorStatus;
 	public List<GameObject> doors = new List<GameObject>();
+	public List<Room> connectedRooms = new List<Room> ();
 	public List<Transform> loiterNodes = new List<Transform>();
 	public List<GameObject> playersInRoom = new List<GameObject>();
 
@@ -18,9 +19,14 @@ public class Room : MonoBehaviour {
 		if (!spreadingVirus) {
 			StartCoroutine (InfectPeople ());
 		}
-	}
 
-	void Start() {
+		//Gets a list of all the rooms connected to this room.
+		connectedRooms.Clear ();
+		foreach (GameObject door in doors) {
+			Room room = door.transform.root.GetComponent<Room> ();
+			if (!connectedRooms.Contains (room) && room != this)
+				connectedRooms.Add (room);
+		}
 	}
 
 	void OnTriggerEnter(Collider c){

@@ -29,11 +29,9 @@ public class AIBehaviour : MonoBehaviour {
 
 	public Transform SetRoamDestination(GameObject currentRoom){
 		Room destRoom;
-
+		Room currRoom = currentRoom.GetComponent<Room> ();
 		//Select a room at random from our list
-		do{
-			destRoom = rooms [Random.Range (0, rooms.Count)];
-		} while(destRoom.gameObject == currentRoom);
+		destRoom = currRoom.connectedRooms [Random.Range (0, currRoom.connectedRooms.Count)];
 
 		//Return a random transform node in the selected room
 		return SetLoiterDestination(destRoom.gameObject);
@@ -44,7 +42,7 @@ public class AIBehaviour : MonoBehaviour {
 		Room room = targetRoom.GetComponent<Room> ();
 		Transform dest = room.loiterNodes[Random.Range (0, room.loiterNodes.Count)];
 		UnityEngine.AI.NavMeshPath p = new UnityEngine.AI.NavMeshPath();
-		if (ai.meshAgent.CalculatePath (dest.position, p))
+		if (ai.meshAgent.CalculatePath (dest.position, p) && p.status != UnityEngine.AI.NavMeshPathStatus.PathInvalid)
 			return dest;
 		else 
 			return SetLoiterDestination (ai.currentRoom);
