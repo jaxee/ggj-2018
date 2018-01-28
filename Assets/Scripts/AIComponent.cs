@@ -40,6 +40,7 @@ public class AIComponent : MonoBehaviour {
 
 	bool sneezing = false;
 	public bool isBoarding = false;
+	public bool pull = false;
 
 	//Components
 	AIBehaviour behaviour;
@@ -53,6 +54,7 @@ public class AIComponent : MonoBehaviour {
 
 	Transform destination;
 	public GameObject currentRoom;
+
 
 	//AIBehaviour.State currentState = AIBehaviour.State.Loiter;
 
@@ -90,7 +92,7 @@ public class AIComponent : MonoBehaviour {
 
 	//TODO: don't run while moving
 	void Update () {
-		if (!isBoarding) {
+		if (!isBoarding && meshAgent != null) {
 			//Will decide whether or not to move every ~1s.
 			if (frameCount >= 60) {
 				frameCount = 0;
