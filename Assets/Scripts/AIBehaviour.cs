@@ -27,8 +27,8 @@ public class AIBehaviour : MonoBehaviour {
 		//Select a room at random from our list
 		List<Room> adjacentOpenRooms = new List<Room>();
 		foreach (GameObject door in currRoom.doors) {
-			Interact d = door.GetComponent<Interact> ();
-			if (!d.meshObs.enabled) {
+			Door d = door.GetComponent<Door> ();
+			if (d.isOpen) {
 				for (int i = 0; i < manager.rooms.Length; i++) {
 					if (rooms [i] != currRoom && rooms [i].doors.Contains (door)) {
 						adjacentOpenRooms.Add (rooms [i]);

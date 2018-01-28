@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour {
 
-	public static List<Interact> doors = new List<Interact> ();
+	public static List<Door> doors = new List<Door> ();
 	public int maxDoorsClosed = 6;
 
 	const int DIFFICULTY_MULTIPLIER = 3;

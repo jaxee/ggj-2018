@@ -9,12 +9,11 @@ public class Interact : MonoBehaviour {
 	public Animator anim;
 	public NavMeshObstacle meshObs;
 	Manager manager;
-	Room currentRoom;
 	Color oldColor;
 	bool isDoor;
 	bool isAirLock;
 	bool isScanner;
-
+	Room currentRoom;
 	//You'll float too
 	float airlockCD = 15f;
 	float airlockTimer;
@@ -61,32 +60,13 @@ public class Interact : MonoBehaviour {
 
 	void OnMouseEnter(){
 		if(interactable)
-		{
-		meshRender.enabled = true;
-			if (Manager.doors.Count == manager.maxDoorsClosed && isDoor) {
-				for (int i = 0; i < Manager.doors.Count; i++) {
-					if (Manager.doors [i].interactable) {
-						Manager.doors [i].meshRender.enabled = true;
-						Manager.doors [i].meshRender.material.color = new Color (1f, 0f, 0f, 0.5f);
-						break;
-					}
-				}
-			}
-		}
+			meshRender.enabled = true;
 	}
 
 	void OnMouseExit(){
 		if (interactable) {
 			meshRender.enabled = false;
-			if (Manager.doors.Count >= manager.maxDoorsClosed && isDoor) {
-				for (int i = 0; i < Manager.doors.Count; i++) {
-					if (Manager.doors [i].interactable) {
-						Manager.doors [i].meshRender.enabled = false;
-						Manager.doors [i].meshRender.material.color = oldColor;
-						break;
-					}
-				}
-			}
+
 		}
 	}
 
@@ -113,24 +93,6 @@ public class Interact : MonoBehaviour {
 		}
 
 		anim.SetTrigger ("toggle");
-
-		if (isDoor) {
-			if (!Manager.doors.Contains (this)) {
-				Manager.doors.Add (this);
-			} else {
-				Manager.doors.Remove (this);
-			}
-			if (Manager.doors.Count >= manager.maxDoorsClosed) {
-				Manager.doors [0].meshRender.enabled = false;
-				Manager.doors [0].meshRender.material.color = oldColor;
-			}
-
-			if (this.meshObs.enabled) {
-				manager.OpenDoor ();
-			} else {
-				manager.CloseDoor ();
-			}
-		}
 			
 		if (isEscapePod) {
 			isEscapePodBoarding = true;
@@ -141,12 +103,9 @@ public class Interact : MonoBehaviour {
 			}
 			currentRoom = transform.parent.GetComponent<Room>();
 			foreach (GameObject door in currentRoom.doors) {
-				Interact d = door.GetComponent<Interact> ();
-				if (!d.meshObs.enabled) {
-					d.anim.SetTrigger ("toggle");
-					d.meshObs.enabled = !d.meshObs.enabled;
-
-					//Destroy (d);
+				Door d = door.GetComponent<Door> ();
+				if (d.isOpen && d.interactable) {
+					d.Trigger ();
 				}
 				Manager.doors.Remove (d);
 				d.interactable = false;
@@ -231,10 +190,9 @@ public class Interact : MonoBehaviour {
 	void SealDoors(){
 		currentRoom = transform.root.GetComponent<Room> ();
 		foreach (GameObject door in currentRoom.doors) {
-			Interact d = door.GetComponent<Interact> ();
-			if (!d.meshObs.enabled) {
-				d.anim.SetTrigger ("toggle");
-				d.meshObs.enabled = !d.meshObs.enabled;
+			Door d = door.GetComponent<Door> ();
+			if (d.isOpen) {
+				d.Trigger (true);
 			}
 			if(!isScanner)
 				d.interactable = false;
@@ -260,10 +218,9 @@ public class Interact : MonoBehaviour {
 	IEnumerator UnlockDoors(){
 		yield return new WaitForSeconds (1.5f);
 		foreach (GameObject door in currentRoom.doors) {
-			Interact d = door.GetComponent<Interact> ();
+			Door d = door.GetComponent<Door> ();
 			d.interactable = true;
-			d.anim.SetTrigger ("toggle");
-			d.meshObs.enabled = false;
+			d.Trigger ();
 		}
 	}
 
