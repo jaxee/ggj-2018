@@ -10,6 +10,7 @@ public class finalScreen : MonoBehaviour {
 	public Text healthyEject;
 	public Text infectedEvac;
 	public Text infectedEject;
+	public Text healthyAlive;
 	public Text finalScore;
 
 	// Use this for initialization
@@ -18,6 +19,7 @@ public class finalScreen : MonoBehaviour {
 		healthyEject.text = Manager.numberOfHealthyEjected.ToString();
 		infectedEvac.text = Manager.numberOfInfectedSaved.ToString();
 		infectedEject.text = Manager.numberOfInfectedEjected.ToString();
+		healthyAlive.text = Manager.numberOfPeopleAlvieAtEnd.ToString ();
 
 		finalScore.text = Manager.score.ToString();
 	}
