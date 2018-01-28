@@ -4,20 +4,20 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class AIComponent : MonoBehaviour {
-	int LOITER_THRESHOLD_MIN = 5;
-	int LOITER_THRESHOLD_MAX = 8;
+	int LOITER_THRESHOLD_MIN = 4;
+	int LOITER_THRESHOLD_MAX = 6;
 
-	int ROAM_PERCENT_MIN = 40;
-	int ROAM_PERCENT_MAX = 60;
+	int ROAM_PERCENT_MIN = 50;
+	int ROAM_PERCENT_MAX = 80;
 
-	int RESIL_MIN = 70;
+	int RESIL_MIN = 80;
 	int RESIL_MAX = 100;
 
 	float SYMP_MIN = 10.0f;
 	float SYMP_MAX = 20.0f;
 
-	float DEATH_MIN = 90f;
-	float DEATH_MAX = 120f;
+	float DEATH_MIN = 120f;
+	float DEATH_MAX = 180f;
 	float deathTimeLength;
 	float deathTimer;
 	public float currentDeathCount;
@@ -124,9 +124,10 @@ public class AIComponent : MonoBehaviour {
 			if (isInfected) {
 				//Makes sure the material changes
 				//Not necessary, just for debug
+				/*
 				if (meshRenderer.material != infectedMat) {
 					meshRenderer.material = infectedMat;
-				}
+				}*/
 				currentDeathCount = Time.time - deathTimer;
 				//If not symptomatic and not 'sneezing' do so for the first time
 				if (!isSymptomatic && !sneezing) {
@@ -147,7 +148,7 @@ public class AIComponent : MonoBehaviour {
 	}
 
 	public void Infect(){
-		meshRenderer.material = infectedMat;
+		//meshRenderer.material = infectedMat;
 		becomingSymptomatic = Time.time;
 		deathTimer = Time.time;
 	}
