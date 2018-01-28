@@ -178,7 +178,7 @@ public class Interact : MonoBehaviour {
 
 	}
 
-	public void OnTriggerEnter(Collider c){
+	public void OnTriggerStay(Collider c){
 
 		if (c.tag == "Player" && isEscapePodBoarding) {
 			//Collect players, do points and destroy player game object
