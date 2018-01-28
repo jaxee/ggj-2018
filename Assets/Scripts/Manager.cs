@@ -285,7 +285,12 @@ public class Manager : MonoBehaviour {
 	//Opens the first door in the list if the list exceeds max count
 	public void CheckDoors(){
 		if (doors.Count > maxDoorsClosed) {
-			doors [0].Trigger ();
+			for (int i = 0; i < doors.Count; i++) {
+				if (doors [i].interactable) {
+					doors [i].Trigger ();
+					return;
+				}
+			}
 		}
 	}
 
