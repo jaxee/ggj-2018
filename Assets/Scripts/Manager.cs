@@ -28,7 +28,8 @@ public class Manager : MonoBehaviour {
 	private GameObject healthBar;
 	private float healthBarWidth;
 
-	public List<string> listOfNames = new List<string> (){
+	[System.NonSerialized]
+	public string[] listOfNames = {
 		"Steve",
 		"Belinda",
 		"Jim",
@@ -92,7 +93,8 @@ public class Manager : MonoBehaviour {
 		"Halen"
 	};
 
-	public List<string> listOfFacts = new List<string> (){
+	[System.NonSerialized]
+	public string[] listOfFacts = {
 		"Explores air vents",
 		"Eats glue",
 		"Paints with hammers",
@@ -158,7 +160,7 @@ public class Manager : MonoBehaviour {
 		"Wololoooo...",
 		"Feels friggin' fantastic",
 		"Looks both ways",
-		"\'Um, actually...\'",
+		"Um, actually...",
 		"Wherefore art thou?",
 		"The Chosen One",
 		"Sings in the shower",
@@ -201,7 +203,8 @@ public class Manager : MonoBehaviour {
 		"I need healing",
 		"Allergic to airlocks",
 		"Fulfilling childhood dream",
-		"Hears voices"
+		"Hears voices",
+		"Cares to share"
 	};
 
 	private string nameOne;
@@ -234,8 +237,8 @@ public class Manager : MonoBehaviour {
 			GameObject newPerson = Instantiate (person[Random.Range(0,person.Length)], spawnPos, transform.rotation) as GameObject;
 
 			AIComponent p = newPerson.GetComponent<AIComponent> ();
-			int rn = Random.Range (0, listOfNames.Count-1);
-			int rd = Random.Range (0, listOfFacts.Count-1);
+			int rn = Random.Range (0, listOfNames.Length);
+			int rd = Random.Range (0, listOfFacts.Length);
 
 			p.personName = listOfNames[rn];
 			p.personFact = listOfFacts[rd];
