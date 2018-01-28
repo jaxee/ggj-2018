@@ -13,7 +13,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: Astro-snot
-  defaultCursor: {fileID: 2800000, guid: a33e02e6f62124e86bf3bb3148cda77b, type: 3}
+  defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
@@ -257,7 +257,7 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
-  resolutionDialogBanner: {fileID: 2800000, guid: 1cf3880f46bd44e3c8a3c2cc0d66505d,
+  resolutionDialogBanner: {fileID: 2800000, guid: 7b230cf5f06044497a85571a7fb6d624,
     type: 3}
   m_BuildTargetIcons:
   - m_BuildTarget: Standalone
