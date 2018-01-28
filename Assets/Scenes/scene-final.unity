@@ -1394,16 +1394,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 198807429991979068, guid: b3579305071daf742bd994a7ee5ad0e8,
-        type: 2}
-      propertyPath: randomSeed
-      value: 1732005658
-      objectReference: {fileID: 0}
-    - target: {fileID: 198807429991979068, guid: b3579305071daf742bd994a7ee5ad0e8,
-        type: 2}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b3579305071daf742bd994a7ee5ad0e8, type: 2}
   m_IsPrefabParent: 0
@@ -1541,6 +1531,8 @@ MonoBehaviour:
   anim: {fileID: 0}
   meshObs: {fileID: 0}
   evacuationPoints: []
+  scan: []
+  sick: {fileID: 0}
 --- !u!95 &756513420
 Animator:
   serializedVersion: 3
@@ -1712,7 +1704,7 @@ Prefab:
     - target: {fileID: 198807429991979068, guid: b3579305071daf742bd994a7ee5ad0e8,
         type: 2}
       propertyPath: randomSeed
-      value: 125468052
+      value: -171192827
       objectReference: {fileID: 0}
     - target: {fileID: 198807429991979068, guid: b3579305071daf742bd994a7ee5ad0e8,
         type: 2}
@@ -2428,7 +2420,7 @@ Prefab:
     - target: {fileID: 198807429991979068, guid: b3579305071daf742bd994a7ee5ad0e8,
         type: 2}
       propertyPath: randomSeed
-      value: -828789796
+      value: 268703033
       objectReference: {fileID: 0}
     - target: {fileID: 198807429991979068, guid: b3579305071daf742bd994a7ee5ad0e8,
         type: 2}
@@ -2482,16 +2474,6 @@ Prefab:
     - target: {fileID: 4292388932068152, guid: b3579305071daf742bd994a7ee5ad0e8, type: 2}
       propertyPath: m_RootOrder
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 198807429991979068, guid: b3579305071daf742bd994a7ee5ad0e8,
-        type: 2}
-      propertyPath: randomSeed
-      value: 741581103
-      objectReference: {fileID: 0}
-    - target: {fileID: 198807429991979068, guid: b3579305071daf742bd994a7ee5ad0e8,
-        type: 2}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b3579305071daf742bd994a7ee5ad0e8, type: 2}
@@ -3099,6 +3081,7 @@ GameObject:
   - component: {fileID: 1575604565}
   - component: {fileID: 1575604564}
   - component: {fileID: 1575604563}
+  - component: {fileID: 1575604570}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3209,7 +3192,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -3228,6 +3211,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
+--- !u!114 &1575604570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1575604562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 316f5522d78320c4885963af4937325b, type: 2}
 --- !u!114 &1577878551 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114726949720094400, guid: 2ae65866c7558f748a3eaa5e9876ddbb,

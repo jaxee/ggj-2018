@@ -11,10 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc61530846aa0ea47ad360ea688fea92, type: 3}
   m_Name: SAE_Death
   m_EditorClassIdentifier: 
-  clips: []
+  clips:
+  - {fileID: 8300000, guid: 6c606305c150b24409b919e0ec6bee22, type: 3}
   volume:
-    minValue: 0
-    maxValue: 0
+    minValue: 0.7936726
+    maxValue: 1
   pitch:
-    minValue: 0
-    maxValue: 0
+    minValue: 0.3851444
+    maxValue: 1.559835
