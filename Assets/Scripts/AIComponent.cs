@@ -5,11 +5,11 @@ using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 public class AIComponent : MonoBehaviour {
-	int LOITER_THRESHOLD_MIN = 5;
-	int LOITER_THRESHOLD_MAX = 8;
+	public int LOITER_THRESHOLD_MIN = 5;
+	public int LOITER_THRESHOLD_MAX = 8;
 
-	int ROAM_PERCENT_MIN = 40;
-	int ROAM_PERCENT_MAX = 60;
+	public int ROAM_PERCENT_MIN = 40;
+	public int ROAM_PERCENT_MAX = 60;
 
 	int RESIL_MIN = 70;
 	int RESIL_MAX = 100;

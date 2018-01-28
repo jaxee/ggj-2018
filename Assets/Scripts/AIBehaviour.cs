@@ -9,14 +9,7 @@ public class AIBehaviour : MonoBehaviour {
 	public static List<Room> rooms = new List<Room>();
 	AIComponent ai;
 	Manager manager;
-
-	public enum State{
-		Loiter,
-		Roam,
-		Panic,
-		Evacuate,
-		MAX_STATES
-	};
+	bool panic = false;
 
 	void Start()
 	{
@@ -44,10 +37,16 @@ public class AIBehaviour : MonoBehaviour {
 				}
 			}
 		}
-		if (adjacentOpenRooms.Count >= 1)
+		if (adjacentOpenRooms.Count >= 1) {
+			if (panic)
+				Calm ();
 			return SetLoiterDestination (adjacentOpenRooms [Random.Range (0, adjacentOpenRooms.Count)].gameObject);
-		else
+		}
+		else {
+			if(!ai.isBoarding && !panic)
+				Panic ();
 			return SetLoiterDestination (currentRoom);
+		}
 	}
 
 	public Transform SetLoiterDestination(GameObject targetRoom){
@@ -67,5 +66,23 @@ public class AIBehaviour : MonoBehaviour {
 		} else {
 			return SetLoiterDestination(currentRoom);
 		}
+	}
+
+	void Panic(){
+		panic = true;
+		ai.meshAgent.speed = 16f;
+		ai.LOITER_THRESHOLD_MIN = 2;
+		ai.LOITER_THRESHOLD_MAX = 3;
+		ai.ROAM_PERCENT_MIN = 80;
+		ai.ROAM_PERCENT_MAX = 90;
+	}
+
+	void Calm(){
+		panic = false;
+		ai.meshAgent.speed = 7f;
+		ai.LOITER_THRESHOLD_MIN = 5;
+		ai.LOITER_THRESHOLD_MAX = 8;
+		ai.ROAM_PERCENT_MIN = 40;
+		ai.ROAM_PERCENT_MAX = 60;
 	}
 }
