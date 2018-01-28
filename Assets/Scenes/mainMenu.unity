@@ -3683,7 +3683,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -244.72, y: 50.716015}
-  m_SizeDelta: {x: 222.18, y: 37.5}
+  m_SizeDelta: {x: 228, y: 37.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1454325190
 MonoBehaviour:
@@ -3714,10 +3714,10 @@ MonoBehaviour:
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ASTRO-NOTS
+  m_Text: ASTRO\SNOT
 --- !u!222 &1454325191
 CanvasRenderer:
   m_ObjectHideFlags: 0
