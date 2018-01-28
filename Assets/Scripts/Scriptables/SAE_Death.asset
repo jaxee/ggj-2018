@@ -9,13 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: baea77950909f084393ce1b5426f6a72, type: 3}
-  m_Name: SAE_DoorClose
+  m_Name: SAE_Death
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: a97ec81a292202740b631d499f91057d, type: 3}
+  - {fileID: 8300000, guid: 80e831d8ed0c02146a18acec87845953, type: 3}
   volume:
-    minValue: 0.78846157
+    minValue: 0.77884614
     maxValue: 1
   pitch:
-    minValue: 0.71153843
-    maxValue: 1.8846154
+    minValue: 0.40384617
+    maxValue: 1.5576924

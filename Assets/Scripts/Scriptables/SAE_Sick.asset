@@ -8,17 +8,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc61530846aa0ea47ad360ea688fea92, type: 3}
+  m_Script: {fileID: 11500000, guid: baea77950909f084393ce1b5426f6a72, type: 3}
   m_Name: SAE_Sick
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: ac74d723564e1734f993e226314f407d, type: 3}
-  - {fileID: 8300000, guid: 1d71a70b826b64d4cabe4951d5781dd5, type: 3}
-  - {fileID: 8300000, guid: 376ffe6dd5fcbaa4681928c7353bc874, type: 3}
-  - {fileID: 8300000, guid: e41f8f56da39921439b128f349e5fe66, type: 3}
+  - {fileID: 8300000, guid: db730d80b04a35c4a9bb56dac608c129, type: 3}
+  - {fileID: 8300000, guid: 34f7c8bc3d7531d4c972d55909c5cb76, type: 3}
+  - {fileID: 8300000, guid: 502f56b81ab37a54586513b81b94a169, type: 3}
+  - {fileID: 8300000, guid: 13a4f91a49fbdd142b56ee85ca42d1a6, type: 3}
   volume:
-    minValue: 0.8486933
+    minValue: 0.7307692
     maxValue: 1
   pitch:
-    minValue: 0.77579165
-    maxValue: 1.6561208
+    minValue: 0.7307694
+    maxValue: 1.7884616

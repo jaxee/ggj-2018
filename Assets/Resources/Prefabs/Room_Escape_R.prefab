@@ -2148,6 +2148,8 @@ MonoBehaviour:
   - {fileID: 1144911534355024}
   - {fileID: 1897771808788950}
   - {fileID: 1039573380874484}
+  scan: []
+  sick: {fileID: 0}
 --- !u!114 &114157691765062434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2162,6 +2164,8 @@ MonoBehaviour:
   anim: {fileID: 0}
   meshObs: {fileID: 0}
   evacuationPoints: []
+  scan: []
+  sick: {fileID: 0}
 --- !u!114 &114524961186980716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2170,12 +2174,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1557311427811622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa209bbd6e509af47bb5c24be22de3f0, type: 3}
+  m_Script: {fileID: 11500000, guid: a47978d2d0e8f374bac96d7df56f6184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - {fileID: 114603858661212400}
-  - {fileID: 114789665268224710}
+  sounds: []
 --- !u!114 &114603858661212400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2184,12 +2186,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1557311427811622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5d480c3beb30cc49abd0e65e8e8aabd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1efc64987235c83458fcfb2f8b8fd2db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Audiosource: {fileID: 82425420863509512}
-  m_AudioEvent: {fileID: 11400000, guid: b428eabe205a79045b32e8099d878128, type: 2}
-  playOnStart: 0
+  m_Audiosource: {fileID: 0}
+  m_AudioEvent: {fileID: 0}
+  playOnStart: 1
 --- !u!114 &114789665268224710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2198,12 +2200,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1557311427811622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5d480c3beb30cc49abd0e65e8e8aabd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1efc64987235c83458fcfb2f8b8fd2db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Audiosource: {fileID: 82425420863509512}
-  m_AudioEvent: {fileID: 11400000, guid: 87787f7af7d7d2c4a9e9573107cdbc81, type: 2}
-  playOnStart: 0
+  m_Audiosource: {fileID: 0}
+  m_AudioEvent: {fileID: 0}
+  playOnStart: 1
 --- !u!114 &114867580365688806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2216,7 +2218,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfRoom: 2
-  doors: []
+  doors:
+  - {fileID: 1557311427811622}
+  - {fileID: 0}
+  - {fileID: 0}
+  connectedRooms: []
   loiterNodes:
   - {fileID: 4970220547329680}
   - {fileID: 4182105127589320}

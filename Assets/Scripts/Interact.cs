@@ -177,6 +177,7 @@ public class Interact : MonoBehaviour {
 		airlockOpen = true;
 		SealDoors ();
 		transform.root.GetComponentInChildren<ParticleSystem> ().Play ();
+		transform.root.GetComponentInChildren<ParticleSystem> ().gameObject.GetComponent<AudioSource> ().Play ();
 		foreach (GameObject player in currentRoom.playersInRoom) {
 			AIComponent p = player.GetComponent<AIComponent> ();
 			Destroy (p.meshAgent);

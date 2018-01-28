@@ -31,10 +31,13 @@ public class AIBehaviour : MonoBehaviour {
 		Room destRoom;
 		Room currRoom = currentRoom.GetComponent<Room> ();
 		//Select a room at random from our list
-		destRoom = currRoom.connectedRooms [Random.Range (0, currRoom.connectedRooms.Count)];
+		if (currRoom.connectedRooms.Count > 0) {
+			destRoom = currRoom.connectedRooms [Random.Range (0, currRoom.connectedRooms.Count)];
 
-		//Return a random transform node in the selected room
-		return SetLoiterDestination(destRoom.gameObject);
+			//Return a random transform node in the selected room
+			return SetLoiterDestination (destRoom.gameObject);
+		}
+		return SetLoiterDestination (currentRoom);
 	}
 
 	public Transform SetLoiterDestination(GameObject targetRoom){
