@@ -1445,12 +1445,12 @@ Prefab:
     - target: {fileID: 198273922684216384, guid: 2d5a9d3c37be02d4da6730301f6a3f56,
         type: 2}
       propertyPath: randomSeed
-      value: 972930676
+      value: -277823007
       objectReference: {fileID: 0}
     - target: {fileID: 198640384489702124, guid: 2d5a9d3c37be02d4da6730301f6a3f56,
         type: 2}
       propertyPath: randomSeed
-      value: -1230349611
+      value: 1962688089
       objectReference: {fileID: 0}
     - target: {fileID: 82337010562719438, guid: 2d5a9d3c37be02d4da6730301f6a3f56,
         type: 2}
@@ -1475,6 +1475,26 @@ Prefab:
       value: 
       objectReference: {fileID: 1265789417211144, guid: c3c2c2d70ecadef44927aa5043383806,
         type: 2}
+    - target: {fileID: 198273922684216384, guid: 2d5a9d3c37be02d4da6730301f6a3f56,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198640384489702124, guid: 2d5a9d3c37be02d4da6730301f6a3f56,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198640384489702124, guid: 2d5a9d3c37be02d4da6730301f6a3f56,
+        type: 2}
+      propertyPath: InitialModule.startSize.scalar
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 198273922684216384, guid: 2d5a9d3c37be02d4da6730301f6a3f56,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d5a9d3c37be02d4da6730301f6a3f56, type: 2}
   m_IsPrefabParent: 0
