@@ -9,7 +9,8 @@ public class PersonPick : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		int choice;
+		int choice = Random.Range (0, people.Length - 1);
+		Instantiate (people [choice], transform.position + new Vector3(0,-2.04f,0),transform.rotation,transform);
 	}
 	
 	// Update is called once per frame

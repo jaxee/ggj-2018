@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114757811684581300}
   - component: {fileID: 114241692186366638}
   - component: {fileID: 54931688802726682}
+  - component: {fileID: 114103118181640596}
   m_Layer: 0
   m_Name: DeadManWalking_V2
   m_TagString: Player
@@ -100,6 +101,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 1
+--- !u!114 &114103118181640596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564335697416558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 553ef6e80256e1e48933add32d34dcf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  people:
+  - {fileID: 1176105620361870, guid: 4615aa5b774df7f43be511c746d6239d, type: 2}
+  - {fileID: 1678779916002360, guid: f0f5392104ea1bf4e96224c9ccb502da, type: 2}
+  - {fileID: 1176105620361870, guid: 4615aa5b774df7f43be511c746d6239d, type: 2}
+  - {fileID: 1678779916002360, guid: f0f5392104ea1bf4e96224c9ccb502da, type: 2}
+  - {fileID: 1176105620361870, guid: 4615aa5b774df7f43be511c746d6239d, type: 2}
+  - {fileID: 1678779916002360, guid: f0f5392104ea1bf4e96224c9ccb502da, type: 2}
+  - {fileID: 1086316131321806, guid: 9423c9d7343dd234dacb1846fc52a843, type: 2}
+  - {fileID: 1730779126415168, guid: edc2d43b4b3d6074ca222cf28a632d2d, type: 2}
 --- !u!114 &114241692186366638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,6 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574ff3af6b5e3c045b10ee9fd1ff0dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panic: 0
 --- !u!114 &114757811684581300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,12 +144,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704cfd98233cb0448c5e936826141ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LOITER_THRESHOLD_MIN: 5
+  LOITER_THRESHOLD_MAX: 8
+  ROAM_PERCENT_MIN: 40
+  ROAM_PERCENT_MAX: 60
   currentDeathCount: 0
   resilience: 0
   isInfected: 0
   isSymptomatic: 0
   isBoarding: 0
   pull: 0
+  personName: 
+  personFact: 
   meshAgent: {fileID: 0}
   infectedMat: {fileID: 2100000, guid: f4d92d156604c804ca4fecca8f7a9097, type: 2}
   sick_Particles: {fileID: 1269828858590394, guid: e6a21e32c2c50194bbe55e224fdf0d59,

@@ -92,6 +92,12 @@ public class Interact : MonoBehaviour {
 		
 		anim.SetTrigger ("toggle");
 
+		if (meshObs.enabled) {
+			GetComponent<SoundPlayManager> ().PlayOne ();
+		} else {
+			GetComponent<SoundPlayManager> ().PlayTwo ();
+		}
+
 		if (isDoor) {
 			if (!Manager.doors.Contains (this)) {
 				Manager.doors.Add (this);
