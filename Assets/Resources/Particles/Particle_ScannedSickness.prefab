@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 4172302767821548}
   - component: {fileID: 198612414332761024}
   - component: {fileID: 199617490829014948}
+  - component: {fileID: 114928471571353496}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -70,6 +71,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114928471571353496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1049642853256202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62e912f88a4d5ea4b96f7836ab11aeda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198612414332761024
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -136,7 +148,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 10
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -177,7 +189,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -3351,7 +3363,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: eabf57784256b2148b0b95001f44ce39, type: 2}
+  - {fileID: 2100000, guid: 6f6b14afddb8dc74e9faef6a0a1c3dc9, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0

@@ -993,7 +993,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943970598233890}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 78, y: 0, z: 52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4090999421533158}
@@ -2685,7 +2685,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfRoom: 0
-  doors: []
+  doors:
+  - {fileID: 1053021410503868}
+  - {fileID: 1166339233833760}
+  connectedRooms: []
   loiterNodes:
   - {fileID: 4482788943025460}
   - {fileID: 4652602383431246}
@@ -2769,6 +2772,8 @@ MonoBehaviour:
   anim: {fileID: 0}
   meshObs: {fileID: 0}
   evacuationPoints: []
+  scan: []
+  sick: {fileID: 0}
 --- !u!114 &114906631610758658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2783,6 +2788,8 @@ MonoBehaviour:
   anim: {fileID: 0}
   meshObs: {fileID: 0}
   evacuationPoints: []
+  scan: []
+  sick: {fileID: 0}
 --- !u!208 &208584249947997678
 NavMeshObstacle:
   m_ObjectHideFlags: 1
