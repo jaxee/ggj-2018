@@ -23,6 +23,7 @@ public class Manager : MonoBehaviour {
 	public static int numberOfInfectedSaved = 0;
 	public static int numberOfInfectedEjected = 0;
 	public static int numberOfHealthyEjected = 0;
+	public static int numberOfPeopleAlvieAtEnd = 0;
 
 	private int numberOfDoors = 0;
 	public int numberOfSickPeople;
@@ -272,6 +273,7 @@ public class Manager : MonoBehaviour {
 			Debug.Log ("Number of infected ejected: " + numberOfInfectedEjected);
 
 			if (numberOfSickPeople == 0) {
+				numberOfPeopleAlvieAtEnd = numberOfHealthyPeople;
 				score += numberOfHealthyPeople * POSITIVE_CONSTANT;
 				numberOfSickPeople--;
 			}
