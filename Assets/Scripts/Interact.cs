@@ -31,6 +31,10 @@ public class Interact : MonoBehaviour {
 	static System.Random escapePodEntrance = new System.Random();
 	public List<GameObject> evacuationPoints = new List<GameObject>();
 
+	public ParticleSystem[] scan;
+	public GameObject sick;
+
+
 	void Start(){
 		meshRender = GetComponent<MeshRenderer> ();
 		anim = GetComponent<Animator> ();
@@ -77,7 +81,8 @@ public class Interact : MonoBehaviour {
 		if (meshObs != null)
 			meshObs.enabled = !meshObs.enabled;
 
-		anim.SetTrigger ("toggle");
+		if(!(isScanner && !canScan))
+			anim.SetTrigger ("toggle");
 
 		if (isDoor) {
 			if (!Manager.doors.Contains (this)) {
@@ -100,6 +105,7 @@ public class Interact : MonoBehaviour {
 				if (!d.meshObs.enabled) {
 					d.anim.SetTrigger ("toggle");
 					d.meshObs.enabled = true;
+					Manager.doors.Remove (d);
 					Destroy (d);
 				}
 			}
@@ -191,7 +197,14 @@ public class Interact : MonoBehaviour {
 	IEnumerator DoScannerStuff(){
 		SealDoors ();
 		yield return new WaitForSeconds (1.5f);
-		Debug.Log ("Scan!");
+		scan [0].Play ();
+		scan [1].Play ();
+		foreach (GameObject player in currentRoom.playersInRoom) {
+			AIComponent ai = player.GetComponent<AIComponent> ();
+			if (ai.isInfected) {
+				Instantiate (sick, ai.transform.position + Vector3.up * 4, Quaternion.identity, ai.transform);
+			}
+		}
 		StartCoroutine (UnlockDoors ());
 		StartCoroutine (ScannerCooldown ());
 	}
