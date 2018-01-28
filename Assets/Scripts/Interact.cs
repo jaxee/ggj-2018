@@ -30,6 +30,10 @@ public class Interact : MonoBehaviour {
 	bool isEscapePodBoarding;
 	static System.Random escapePodEntrance = new System.Random();
 	public List<GameObject> evacuationPoints = new List<GameObject>();
+
+	public ParticleSystem[] scan;
+	public GameObject sick;
+
 	int negScoreDiff;
 	int posScoreDiff;
 

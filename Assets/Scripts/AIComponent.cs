@@ -41,6 +41,7 @@ public class AIComponent : MonoBehaviour {
 
 	bool sneezing = false;
 	public bool isBoarding = false;
+	public bool pull = false;
 
 	public string personName = null;
 	public string personFact = null;
