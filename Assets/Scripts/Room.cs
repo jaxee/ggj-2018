@@ -63,6 +63,7 @@ public class Room : MonoBehaviour {
 				if (Random.Range (0, 100) > p.resilience && !p.isInfected) {
 					p.isInfected = true;
 					m.numberOfSickPeople++;
+					m.numberOfHealthyPeople--;
 				} else {
 					p.resilience -= numOfInfectedPlayers * 2;
 					p.resilience = Mathf.Clamp (p.resilience, 0, 100);

@@ -158,7 +158,7 @@ public class Interact : MonoBehaviour {
 		}
 
 		if (isAirLock) {
-			StartCoroutine (DoAirlockStuff ());
+			StartCoroutine (DoAirlockStuff ());	
 		}
 
 		if (isScanner && canScan) {

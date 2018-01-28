@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour {
 
@@ -17,7 +18,11 @@ public class Manager : MonoBehaviour {
 	public int numberOfPeople;
 	public int difficulty; // Between 1 and 5
 
-	private int score = 0;
+	public static int score = 0;
+	public static int numberOfHealthySaved = 0;
+	public static int numberOfInfectedSaved = 0;
+	public static int numberOfInfectedEjected = 0;
+	public static int numberOfHealthyEjected = 0;
 
 	private int numberOfDoors = 0;
 	public int numberOfSickPeople;
@@ -166,11 +171,8 @@ public class Manager : MonoBehaviour {
 		healthBar = GameObject.FindGameObjectWithTag ("Health");
 		rt = healthBar.GetComponent<RectTransform>();
 
-		Debug.Log ("Rect width: " + rt.rect.width);
 		healthBarWidth = rt.rect.width;
 		rt.sizeDelta = new Vector2(ReMap (numberOfSickPeople, 0, numberOfPeople, 0, healthBarWidth), rt.rect.height);
-
-		Debug.Log ("# sick: " + numberOfSickPeople + " | Rect val: " + ReMap (numberOfSickPeople, 0, numberOfPeople, 0, rt.rect.width));
 
 		for (int j = 0; j < numberOfPeople; j++) {
 			Room room = rooms[Random.Range(0, rooms.Length)];
@@ -200,11 +202,24 @@ public class Manager : MonoBehaviour {
 	void Update () {
 		CheckDoors ();
 		scoreTxt.text = score.ToString();
-
-		Debug.Log ("Rect width: " + rt.rect.width);
 		rt.sizeDelta = new Vector2(ReMap (numberOfSickPeople, 0, numberOfPeople, 0, healthBarWidth), rt.rect.height);
 
-		Debug.Log ("# sick: " + numberOfSickPeople);
+		Debug.Log ("All: " + numberOfPeople + " | Healthy: " + numberOfHealthyPeople + " Sick: " + numberOfSickPeople);
+
+		if (numberOfSickPeople == 0 || numberOfHealthyPeople == 0) {
+
+			Debug.Log ("Number of healthy saved: " + numberOfHealthySaved);
+			Debug.Log ("Number of infected saved: " + numberOfInfectedSaved);
+			Debug.Log ("Number of healthy ejected: " + numberOfHealthyEjected);
+			Debug.Log ("Number of infected ejected: " + numberOfInfectedEjected);
+
+			if (numberOfSickPeople == 0) {
+				score += numberOfHealthyPeople * POSITIVE_CONSTANT;
+				numberOfSickPeople--;
+			}
+
+			SceneManager.LoadScene (2);
+		}
 	}
 
 	//Opens the first door in the list if the list exceeds max count
@@ -233,6 +248,25 @@ public class Manager : MonoBehaviour {
 		} else {
 			consoleTxt.text = "Evacuated \n\n" + "Normal +" + pos.ToString() + "\nSick " + neg.ToString();
 		}
+
+		numberOfInfectedSaved += neg / NEGATIVE_CONSTANT;
+		numberOfHealthySaved += pos / POSITIVE_CONSTANT;
+	}
+
+	public void AirLockFinished(int pos, int neg) {
+
+		if (pos == 0 && neg == 0) {
+			consoleTxt.text = "Airlock Released \n Nobody";
+		} else if (neg == 0) {
+			consoleTxt.text = "Airlock Released \n\n" + "Sick +" + pos.ToString();
+		} else if (pos == 0) {
+			consoleTxt.text = "Airlock Released \n\n" + "Normal " + neg.ToString();
+		} else {
+			consoleTxt.text = "Airlock Released \n\n" + "Normal " + neg.ToString() + "\nSick +" + pos.ToString();
+		}
+
+		numberOfInfectedEjected += pos / POSITIVE_CONSTANT;
+		numberOfHealthyEjected += neg / NEGATIVE_CONSTANT;
 	}
 
 	public void PlayerDied(string name){

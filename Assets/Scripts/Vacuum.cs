@@ -6,6 +6,11 @@ public class Vacuum : MonoBehaviour {
 	public float force = 900000f;
 	bool pull = true;
 	Room room;
+
+	Manager m;
+	int negScoreDiff;
+	int posScoreDiff;
+
 	// Use this for initialization
 	void Start () {
 		room =transform.root.GetComponent<Room> ();
@@ -40,12 +45,26 @@ public class Vacuum : MonoBehaviour {
 	void OnTriggerExit(Collider c)
 	{
 		if (c.tag == "Player") {
+			AIComponent p = c.GetComponent<AIComponent> ();
+			m = GameObject.FindObjectOfType<Manager> ();
+
+			if (p.isInfected) {
+				posScoreDiff += m.addPoints ();
+				m.numberOfSickPeople--;
+			} else {
+				negScoreDiff += m.removePoints ();
+				m.numberOfHealthyPeople--;
+			}
+
+			m.numberOfPeople--;
+
 			StartCoroutine(DelayDestroy (c.GetComponent<AIComponent> ()));
 		}
 	}
 
 	IEnumerator DelayDestroy(AIComponent g)
 	{
+		m.AirLockFinished (posScoreDiff, negScoreDiff);
 		yield return new WaitForSeconds (5f);
 		g.destoryPlayer ();
 	}
