@@ -30,6 +30,7 @@ public class Interact : MonoBehaviour {
 	bool isEscapePodBoarding;
 	static System.Random escapePodEntrance = new System.Random();
 	public List<GameObject> evacuationPoints = new List<GameObject>();
+	bool leavingEmpty= false;
 
 	public ParticleSystem[] scan;
 	public GameObject sick;
@@ -111,7 +112,11 @@ public class Interact : MonoBehaviour {
 			
 		if (isEscapePod) {
 			isEscapePodBoarding = true;
-
+			if (leavingEmpty) {
+				anim.SetTrigger ("toggle");
+				GetComponentInChildren<AudioSource> ().Play (54100);
+				manager.EscapePodLaunched (posScoreDiff, negScoreDiff);
+			}
 			currentRoom = transform.parent.GetComponent<Room>();
 			foreach (GameObject door in currentRoom.doors) {
 				Interact d = door.GetComponent<Interact> ();
@@ -126,8 +131,8 @@ public class Interact : MonoBehaviour {
 			}
 
 			if (currentRoom.playersInRoom.Count == 0) {
-				Debug.Log ("LAUNCH SHIP ANIMATION");
-				manager.EscapePodLaunched (posScoreDiff, negScoreDiff);
+				
+				leavingEmpty = true;
 			} else {
 				foreach(GameObject player in currentRoom.playersInRoom) {
 					AIComponent p = player.GetComponent<AIComponent> ();
@@ -173,7 +178,8 @@ public class Interact : MonoBehaviour {
 			player.destoryPlayer();
 
 			if (currentRoom.playersInRoom.Count == 0) {
-				Debug.Log ("LAUNCH SHIP ANIMATION");
+				anim.SetTrigger ("toggle");
+				GetComponentInChildren<AudioSource> ().Play (54100);;
 				manager.EscapePodLaunched (posScoreDiff, negScoreDiff);
 			}
 		}

@@ -9,7 +9,7 @@ public class AIBehaviour : MonoBehaviour {
 	public static List<Room> rooms = new List<Room>();
 	AIComponent ai;
 	Manager manager;
-	bool panic = false;
+	public bool panic = false;
 
 	void Start()
 	{
