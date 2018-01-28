@@ -2282,12 +2282,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1750341396808310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1efc64987235c83458fcfb2f8b8fd2db, type: 3}
+  m_Script: {fileID: 11500000, guid: a5d480c3beb30cc49abd0e65e8e8aabd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Audiosource: {fileID: 0}
-  m_AudioEvent: {fileID: 0}
-  playOnStart: 1
+  m_AudioEvent: {fileID: 11400000, guid: 87787f7af7d7d2c4a9e9573107cdbc81, type: 2}
+  playOnStart: 0
 --- !u!114 &114391061030439292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2296,12 +2296,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1750341396808310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1efc64987235c83458fcfb2f8b8fd2db, type: 3}
+  m_Script: {fileID: 11500000, guid: a5d480c3beb30cc49abd0e65e8e8aabd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Audiosource: {fileID: 0}
-  m_AudioEvent: {fileID: 0}
-  playOnStart: 1
+  m_AudioEvent: {fileID: 11400000, guid: b428eabe205a79045b32e8099d878128, type: 2}
+  playOnStart: 0
 --- !u!114 &114545951284422782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2332,6 +2332,7 @@ MonoBehaviour:
   typeOfRoom: 0
   doors:
   - {fileID: 1750341396808310}
+  - {fileID: 0}
   - {fileID: 0}
   connectedRooms: []
   loiterNodes:
@@ -2369,10 +2370,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1750341396808310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a47978d2d0e8f374bac96d7df56f6184, type: 3}
+  m_Script: {fileID: 11500000, guid: fa209bbd6e509af47bb5c24be22de3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - {fileID: 114391061030439292}
+  - {fileID: 114344473007808372}
 --- !u!208 &208212811455777392
 NavMeshObstacle:
   m_ObjectHideFlags: 1
