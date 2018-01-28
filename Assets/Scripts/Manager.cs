@@ -214,11 +214,11 @@ public class Manager : MonoBehaviour {
 	}
 
 	public void OpenDoor() {
-		consoleTxt.text = "Open Door";
+		consoleTxt.text = "Close Door";
 	}
 
 	public void CloseDoor() {
-		consoleTxt.text = "Close Door";
+		consoleTxt.text = "Open Door";
 	}
 
 	public void EscapePodLaunched(int pos, int neg) {
