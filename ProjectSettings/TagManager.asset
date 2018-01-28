@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Room
   - Door
+  - Escape
+  - EscapePoint
+  - Airlock
   layers:
   - Default
   - TransparentFX

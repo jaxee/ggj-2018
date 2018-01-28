@@ -7,7 +7,8 @@ public class AIBehaviour : MonoBehaviour {
 	//List of rooms to pick from for destination
 	private GameObject[] roomsGO;
 	public static List<Room> rooms = new List<Room>();
-
+	AIComponent ai;
+	Manager manager;
 
 	public enum State{
 		Loiter,
@@ -19,6 +20,8 @@ public class AIBehaviour : MonoBehaviour {
 
 	void Start()
 	{
+		manager = GameObject.FindObjectOfType<Manager> ();
+		ai = GetComponent<AIComponent> ();
 		roomsGO = GameObject.FindGameObjectsWithTag ("Room");
 
 		for (int i = 0; i < roomsGO.Length; i++) {
@@ -27,20 +30,35 @@ public class AIBehaviour : MonoBehaviour {
 	}
 
 	public Transform SetRoamDestination(GameObject currentRoom){
-		Room destRoom;
-
+		Room currRoom = currentRoom.GetComponent<Room> ();
 		//Select a room at random from our list
-		do{
-			destRoom = rooms [Random.Range (0, rooms.Count)];
-		} while(destRoom.gameObject == currentRoom);
-
-		//Return a random transform node in the selected room
-		return SetLoiterDestination(destRoom.gameObject);
+		List<Room> adjacentOpenRooms = new List<Room>();
+		foreach (GameObject door in currRoom.doors) {
+			Interact d = door.GetComponent<Interact> ();
+			if (!d.meshObs.enabled) {
+				for (int i = 0; i < manager.rooms.Length; i++) {
+					if (rooms [i] != currRoom && rooms [i].doors.Contains (door)) {
+						adjacentOpenRooms.Add (rooms [i]);
+						break;
+					}
+				}
+			}
+		}
+		if (adjacentOpenRooms.Count >= 1)
+			return SetLoiterDestination (adjacentOpenRooms [Random.Range (0, adjacentOpenRooms.Count)].gameObject);
+		else
+			return SetLoiterDestination (currentRoom);
 	}
 
 	public Transform SetLoiterDestination(GameObject targetRoom){
+		
 		Room room = targetRoom.GetComponent<Room> ();
-		return room.loiterNodes[Random.Range (0, room.loiterNodes.Count)];
+		Transform dest = room.loiterNodes[Random.Range (0, room.loiterNodes.Count)];
+		UnityEngine.AI.NavMeshPath p = new UnityEngine.AI.NavMeshPath();
+		if (ai.meshAgent.CalculatePath (dest.position, p) && p.status != UnityEngine.AI.NavMeshPathStatus.PathInvalid)
+			return dest;
+		else 
+			return SetLoiterDestination (ai.currentRoom);
 	}
 
 	public Transform Decide(GameObject currentRoom, int roamChance){
