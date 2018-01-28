@@ -33,7 +33,8 @@ public class Manager : MonoBehaviour {
 	private GameObject healthBar;
 	private float healthBarWidth;
 
-	public List<string> listOfNames = new List<string> (){
+		[System.NonSerialized]
+	public string[] listOfNames = {
 		"Steve",
 		"Belinda",
 		"Jim",
@@ -93,10 +94,12 @@ public class Manager : MonoBehaviour {
 		"Wild Urp",
 		"Abnormal Ruddy",
 		"Patricia",
-		"Spaghett"
+		"Spaghett",
+		"Halen"
 	};
 
-	public List<string> listOfFacts = new List<string> (){
+	[System.NonSerialized]
+	public string[] listOfFacts = {
 		"Explores air vents",
 		"Eats glue",
 		"Paints with hammers",
@@ -145,7 +148,7 @@ public class Manager : MonoBehaviour {
 		"Can't even",
 		"Has the best words",
 		"Has an extra toe",
-		"Lifts bro",
+		"Lifts, bro",
 		"Wears a tupee",
 		"Loves ocelots",
 		"Has a spice rub",
@@ -155,10 +158,64 @@ public class Manager : MonoBehaviour {
 		"Has seen shit",
 		"Wants to see shit",
 		"Sees you",
-		"Detects farts"
+		"Detects farts",
+		"Sniffs glue",
+		"Hasn't slept in years",
+		"AV Club Co-Founder",
+		"Wololoooo...",
+		"Feels friggin' fantastic",
+		"Looks both ways",
+		"Um, actually...",
+		"Wherefore art thou?",
+		"The Chosen One",
+		"Sings in the shower",
+		"Always cold",
+		"Never eats breakfast",
+		"Fully vaccinated",
+		"Forever punk",
+		"Blow the others' mind",
+		"Falcon punch!",
+		"Praises the sun",
+		"DROP * FROM Users",
+		"Floats, and so will you!",
+		"*Teleports behind you*",
+		"Conceived at GGJ2018",
+		"Intergalactic thief",
+		"Space is safer than planes",
+		"Obsessed with Nyan Cat",
+		"Not qualified for this",
+		"Has muffin for brain",
+		"Raised by a cup of coffee",
+		"Two left feet",
+		"Where am I?",
+		"Easy money...",
+		"Lives in a pineapple",
+		"Controls the spice",
+		"Forever alone",
+		"Watches anime",
+		"Has hopes and dreams",
+		"...",
+		"Born yesterday",
+		"Doesn't like voxels",
+		"Prematurely bald",
+		"Lacks posture",
+		"Lives with the owls",
+		"Howdy partner",
+		"Negative, partner",
+		"Call for a good time",
+		"REALLY likes mushrooms",
+		"40% less salt",
+		"I need healing",
+		"Allergic to airlocks",
+		"Fulfilling childhood dream",
+		"Hears voices",
+		"Cares to share"
 	};
 
 	private string nameOne;
+
+	CamControl cam;
+	public Image camLock;
 
 	public Text consoleTxt;
 	public Text scoreTxt;

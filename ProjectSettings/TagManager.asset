@@ -9,6 +9,8 @@ TagManager:
   - Escape
   - EscapePoint
   - Airlock
+  - Health
+  - Music
   layers:
   - Default
   - TransparentFX

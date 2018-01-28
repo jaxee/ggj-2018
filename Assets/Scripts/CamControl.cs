@@ -5,7 +5,7 @@ using UnityEngine;
 public class CamControl : MonoBehaviour {
 	Camera cam;
 	float smoothing = 20f;
-	bool scrollLock = false;
+	public bool scrollLock = false;
 	// Use this for initialization
 	void Start () {
 		cam = GetComponent<Camera> ();
