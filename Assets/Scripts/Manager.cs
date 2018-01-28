@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour {
 
@@ -18,11 +17,7 @@ public class Manager : MonoBehaviour {
 	public int numberOfPeople;
 	public int difficulty; // Between 1 and 5
 
-	public static int score = 0;
-	public static int numberOfHealthySaved = 0;
-	public static int numberOfInfectedSaved = 0;
-	public static int numberOfInfectedEjected = 0;
-	public static int numberOfHealthyEjected = 0;
+	private int score = 0;
 
 	private int numberOfDoors = 0;
 	public int numberOfSickPeople;
@@ -33,7 +28,7 @@ public class Manager : MonoBehaviour {
 	private GameObject healthBar;
 	private float healthBarWidth;
 
-		[System.NonSerialized]
+	[System.NonSerialized]
 	public string[] listOfNames = {
 		"Steve",
 		"Belinda",
@@ -215,8 +210,8 @@ public class Manager : MonoBehaviour {
 	private string nameOne;
 
 	CamControl cam;
-	public Image camLock;
 
+	public Image camLock;
 	public Text consoleTxt;
 	public Text scoreTxt;
 	RectTransform rt;
@@ -225,11 +220,16 @@ public class Manager : MonoBehaviour {
 		numberOfSickPeople = difficulty * DIFFICULTY_MULTIPLIER;
 		numberOfHealthyPeople = numberOfPeople - numberOfSickPeople;
 
+		cam = GameObject.FindObjectOfType<CamControl> ();
+
 		healthBar = GameObject.FindGameObjectWithTag ("Health");
 		rt = healthBar.GetComponent<RectTransform>();
 
+		//Debug.Log ("Rect width: " + rt.rect.width);
 		healthBarWidth = rt.rect.width;
 		rt.sizeDelta = new Vector2(ReMap (numberOfSickPeople, 0, numberOfPeople, 0, healthBarWidth), rt.rect.height);
+
+		//Debug.Log ("# sick: " + numberOfSickPeople + " | Rect val: " + ReMap (numberOfSickPeople, 0, numberOfPeople, 0, rt.rect.width));
 
 		for (int j = 0; j < numberOfPeople; j++) {
 			Room room = rooms[Random.Range(0, rooms.Length)];
@@ -237,8 +237,8 @@ public class Manager : MonoBehaviour {
 			GameObject newPerson = Instantiate (person[Random.Range(0,person.Length)], spawnPos, transform.rotation) as GameObject;
 
 			AIComponent p = newPerson.GetComponent<AIComponent> ();
-			int rn = Random.Range (0, listOfNames.Count-1);
-			int rd = Random.Range (0, listOfFacts.Count-1);
+			int rn = Random.Range (0, listOfNames.Length);
+			int rd = Random.Range (0, listOfFacts.Length);
 
 			p.personName = listOfNames[rn];
 			p.personFact = listOfFacts[rd];
@@ -249,7 +249,7 @@ public class Manager : MonoBehaviour {
 
 			consoleTxt.text = "Welcome!\n\nStop the virus from spreading";
 		}
-
+	
 		scoreTxt.text = score.ToString();
 
 		//Debug.Log ("Number of People: " + numberOfPeople + " | sick: " + numberOfSickPeople + " healthy: " + numberOfHealthyPeople);
@@ -259,30 +259,22 @@ public class Manager : MonoBehaviour {
 	void Update () {
 		CheckDoors ();
 		scoreTxt.text = score.ToString();
+		camLock.enabled = cam.scrollLock;
+		//Debug.Log ("Rect width: " + rt.rect.width);
 		rt.sizeDelta = new Vector2(ReMap (numberOfSickPeople, 0, numberOfPeople, 0, healthBarWidth), rt.rect.height);
 
-		Debug.Log ("All: " + numberOfPeople + " | Healthy: " + numberOfHealthyPeople + " Sick: " + numberOfSickPeople);
-
-		if (numberOfSickPeople == 0 || numberOfHealthyPeople == 0) {
-
-			Debug.Log ("Number of healthy saved: " + numberOfHealthySaved);
-			Debug.Log ("Number of infected saved: " + numberOfInfectedSaved);
-			Debug.Log ("Number of healthy ejected: " + numberOfHealthyEjected);
-			Debug.Log ("Number of infected ejected: " + numberOfInfectedEjected);
-
-			if (numberOfSickPeople == 0) {
-				score += numberOfHealthyPeople * POSITIVE_CONSTANT;
-				numberOfSickPeople--;
-			}
-
-			SceneManager.LoadScene (2);
-		}
+		//Debug.Log ("# sick: " + numberOfSickPeople);
 	}
 
 	//Opens the first door in the list if the list exceeds max count
 	public void CheckDoors(){
 		if (doors.Count > maxDoorsClosed) {
-			doors [0].Trigger ();
+			for (int i = 0; i < doors.Count; i++) {
+				if (doors [i].interactable) {
+					doors [i].Trigger ();
+					return;
+				}
+			}
 		}
 	}
 
@@ -305,25 +297,6 @@ public class Manager : MonoBehaviour {
 		} else {
 			consoleTxt.text = "Evacuated \n\n" + "Normal +" + pos.ToString() + "\nSick " + neg.ToString();
 		}
-
-		numberOfInfectedSaved += neg / NEGATIVE_CONSTANT;
-		numberOfHealthySaved += pos / POSITIVE_CONSTANT;
-	}
-
-	public void AirLockFinished(int pos, int neg) {
-
-		if (pos == 0 && neg == 0) {
-			consoleTxt.text = "Airlock Released \n Nobody";
-		} else if (neg == 0) {
-			consoleTxt.text = "Airlock Released \n\n" + "Sick +" + pos.ToString();
-		} else if (pos == 0) {
-			consoleTxt.text = "Airlock Released \n\n" + "Normal " + neg.ToString();
-		} else {
-			consoleTxt.text = "Airlock Released \n\n" + "Normal " + neg.ToString() + "\nSick +" + pos.ToString();
-		}
-
-		numberOfInfectedEjected += pos / POSITIVE_CONSTANT;
-		numberOfHealthyEjected += neg / NEGATIVE_CONSTANT;
 	}
 
 	public void PlayerDied(string name){
