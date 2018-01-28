@@ -88,7 +88,8 @@ public class Manager : MonoBehaviour {
 		"Wild Urp",
 		"Abnormal Ruddy",
 		"Patricia",
-		"Spaghett"
+		"Spaghett",
+		"Halen"
 	};
 
 	public List<string> listOfFacts = new List<string> (){
@@ -140,7 +141,7 @@ public class Manager : MonoBehaviour {
 		"Can't even",
 		"Has the best words",
 		"Has an extra toe",
-		"Lifts bro",
+		"Lifts, bro",
 		"Wears a tupee",
 		"Loves ocelots",
 		"Has a spice rub",
@@ -150,11 +151,64 @@ public class Manager : MonoBehaviour {
 		"Has seen shit",
 		"Wants to see shit",
 		"Sees you",
-		"Detects farts"
+		"Detects farts",
+		"Sniffs glue",
+		"Hasn't slept in years",
+		"AV Club Co-Founder",
+		"Wololoooo...",
+		"Feels friggin' fantastic",
+		"Looks both ways",
+		"\'Um, actually...\'",
+		"Wherefore art thou?",
+		"The Chosen One",
+		"Sings in the shower",
+		"Always cold",
+		"Never eats breakfast",
+		"Fully vaccinated",
+		"Forever punk",
+		"Blow the others' mind",
+		"Falcon punch!",
+		"Praises the sun",
+		"DROP * FROM Users",
+		"Floats, and so will you!",
+		"*Teleports behind you*",
+		"Conceived at GGJ2018",
+		"Intergalactic thief",
+		"Space is safer than planes",
+		"Obsessed with Nyan Cat",
+		"Not qualified for this",
+		"Has muffin for brain",
+		"Raised by a cup of coffee",
+		"Two left feet",
+		"Where am I?",
+		"Easy money...",
+		"Lives in a pineapple",
+		"Controls the spice",
+		"Forever alone",
+		"Watches anime",
+		"Has hopes and dreams",
+		"...",
+		"Born yesterday",
+		"Doesn't like voxels",
+		"Prematurely bald",
+		"Lacks posture",
+		"Lives with the owls",
+		"Howdy partner",
+		"Negative, partner",
+		"Call for a good time",
+		"REALLY likes mushrooms",
+		"40% less salt",
+		"I need healing",
+		"Allergic to airlocks",
+		"Fulfilling childhood dream",
+		"Hears voices"
 	};
 
 	private string nameOne;
 
+	CamControl cam;
+
+	public Image camLock;
 	public Text consoleTxt;
 	public Text scoreTxt;
 	RectTransform rt;
@@ -163,14 +217,16 @@ public class Manager : MonoBehaviour {
 		numberOfSickPeople = difficulty * DIFFICULTY_MULTIPLIER;
 		numberOfHealthyPeople = numberOfPeople - numberOfSickPeople;
 
+		cam = GameObject.FindObjectOfType<CamControl> ();
+
 		healthBar = GameObject.FindGameObjectWithTag ("Health");
 		rt = healthBar.GetComponent<RectTransform>();
 
-		Debug.Log ("Rect width: " + rt.rect.width);
+		//Debug.Log ("Rect width: " + rt.rect.width);
 		healthBarWidth = rt.rect.width;
 		rt.sizeDelta = new Vector2(ReMap (numberOfSickPeople, 0, numberOfPeople, 0, healthBarWidth), rt.rect.height);
 
-		Debug.Log ("# sick: " + numberOfSickPeople + " | Rect val: " + ReMap (numberOfSickPeople, 0, numberOfPeople, 0, rt.rect.width));
+		//Debug.Log ("# sick: " + numberOfSickPeople + " | Rect val: " + ReMap (numberOfSickPeople, 0, numberOfPeople, 0, rt.rect.width));
 
 		for (int j = 0; j < numberOfPeople; j++) {
 			Room room = rooms[Random.Range(0, rooms.Length)];
@@ -200,17 +256,22 @@ public class Manager : MonoBehaviour {
 	void Update () {
 		CheckDoors ();
 		scoreTxt.text = score.ToString();
-
-		Debug.Log ("Rect width: " + rt.rect.width);
+		camLock.enabled = cam.scrollLock;
+		//Debug.Log ("Rect width: " + rt.rect.width);
 		rt.sizeDelta = new Vector2(ReMap (numberOfSickPeople, 0, numberOfPeople, 0, healthBarWidth), rt.rect.height);
 
-		Debug.Log ("# sick: " + numberOfSickPeople);
+		//Debug.Log ("# sick: " + numberOfSickPeople);
 	}
 
 	//Opens the first door in the list if the list exceeds max count
 	public void CheckDoors(){
 		if (doors.Count > maxDoorsClosed) {
-			doors [0].Trigger ();
+			for (int i = 0; i < doors.Count; i++) {
+				if (doors [i].interactable) {
+					doors [i].Trigger ();
+					return;
+				}
+			}
 		}
 	}
 

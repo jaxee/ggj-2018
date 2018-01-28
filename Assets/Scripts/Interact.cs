@@ -23,7 +23,7 @@ public class Interact : MonoBehaviour {
 	float scannerCD = 30f;
 	bool canScan = true;
 
-	bool interactable = true;
+	public bool interactable = true;
 
 	// Escape pod variables
 	bool isEscapePod;
@@ -64,8 +64,13 @@ public class Interact : MonoBehaviour {
 		{
 		meshRender.enabled = true;
 			if (Manager.doors.Count == manager.maxDoorsClosed) {
-				Manager.doors [0].meshRender.enabled = true;
-				Manager.doors [0].meshRender.material.color = new Color (1f, 0f, 0f, 0.5f);
+				for (int i = 0; i < Manager.doors.Count; i++) {
+					if (Manager.doors [i].interactable) {
+						Manager.doors [i].meshRender.enabled = true;
+						Manager.doors [i].meshRender.material.color = new Color (1f, 0f, 0f, 0.5f);
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -74,8 +79,13 @@ public class Interact : MonoBehaviour {
 		if (interactable) {
 			meshRender.enabled = false;
 			if (Manager.doors.Count >= manager.maxDoorsClosed) {
-				Manager.doors [0].meshRender.enabled = false;
-				Manager.doors [0].meshRender.material.color = oldColor;
+				for (int i = 0; i < Manager.doors.Count; i++) {
+					if (Manager.doors [i].interactable) {
+						Manager.doors [i].meshRender.enabled = false;
+						Manager.doors [i].meshRender.material.color = oldColor;
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -213,6 +223,7 @@ public class Interact : MonoBehaviour {
 			rb.drag = 0f;
 			rb.angularDrag = 0f;
 		}
+		StartCoroutine (AirlockCooldown ());
 	}
 
 	void SealDoors(){
@@ -236,7 +247,7 @@ public class Interact : MonoBehaviour {
 		foreach (GameObject player in currentRoom.playersInRoom) {
 			AIComponent ai = player.GetComponent<AIComponent> ();
 			if (ai.isInfected) {
-				Instantiate (sick, ai.transform.position + Vector3.up * 4, Quaternion.identity, ai.transform);
+				Instantiate (sick, ai.transform.position + Vector3.up * 8, Quaternion.identity, ai.transform);
 			}
 		}
 		StartCoroutine (UnlockDoors ());
@@ -248,6 +259,8 @@ public class Interact : MonoBehaviour {
 		foreach (GameObject door in currentRoom.doors) {
 			Interact d = door.GetComponent<Interact> ();
 			d.interactable = true;
+			d.anim.SetTrigger ("toggle");
+			d.meshObs.enabled = false;
 		}
 	}
 
@@ -256,6 +269,14 @@ public class Interact : MonoBehaviour {
 		yield return new WaitForSeconds (scannerCD);
 		interactable = true;
 		canScan = true;
+		anim.SetTrigger ("toggle");
+	}
+
+	IEnumerator AirlockCooldown(){
+		interactable = false;
+		yield return new WaitForSeconds (airlockCD);
+		interactable = true;
+		StartCoroutine (UnlockDoors ());
 		anim.SetTrigger ("toggle");
 	}
 }
