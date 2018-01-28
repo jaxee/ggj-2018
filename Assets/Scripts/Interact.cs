@@ -38,6 +38,8 @@ public class Interact : MonoBehaviour {
 	int negScoreDiff;
 	int posScoreDiff;
 
+	public GameObject buttonObject;
+
 	void Start(){
 		meshRender = GetComponent<MeshRenderer> ();
 		anim = GetComponent<Animator> ();
@@ -87,16 +89,18 @@ public class Interact : MonoBehaviour {
 		posScoreDiff = 0;
 		negScoreDiff = 0;
 
-		if(meshObs != null)
+		if (meshObs != null) {
 			meshObs.enabled = !meshObs.enabled;
-		
-		anim.SetTrigger ("toggle");
-
-		if (meshObs.enabled) {
-			GetComponent<SoundPlayManager> ().PlayOne ();
+			if (meshObs.enabled) {
+				GetComponent<SoundPlayManager> ().PlayOne ();
+			} else {
+				GetComponent<SoundPlayManager> ().PlayTwo ();
+			}
 		} else {
-			GetComponent<SoundPlayManager> ().PlayTwo ();
+			Instantiate (buttonObject, transform.position, Quaternion.identity);
 		}
+
+		anim.SetTrigger ("toggle");
 
 		if (isDoor) {
 			if (!Manager.doors.Contains (this)) {
@@ -198,6 +202,7 @@ public class Interact : MonoBehaviour {
 		airlockOpen = true;
 		SealDoors ();
 		transform.root.GetComponentInChildren<ParticleSystem> ().Play ();
+		transform.parent.GetComponentInChildren<AudioSource> ().Play ();
 		foreach (GameObject player in currentRoom.playersInRoom) {
 			AIComponent p = player.GetComponent<AIComponent> ();
 			Destroy (p.meshAgent);
@@ -225,6 +230,7 @@ public class Interact : MonoBehaviour {
 	IEnumerator DoScannerStuff(){
 		SealDoors ();
 		yield return new WaitForSeconds (1.5f);
+		GetComponentInChildren<AudioSource> ().Play ();
 		scan [0].Play ();
 		scan [1].Play ();
 		foreach (GameObject player in currentRoom.playersInRoom) {
