@@ -20,10 +20,12 @@ public class Manager : MonoBehaviour {
 	private int score = 0;
 
 	private int numberOfDoors = 0;
-	private int numberOfSickPeople = 0;
-	private int numberOfHealthyPeople = 0;
+	public int numberOfSickPeople;
+	public int numberOfHealthyPeople;
 
 	public GameObject person;
+	private GameObject healthBar;
+	private float healthBarWidth;
 
 	public List<string> listOfNames = new List<string> (){
 		"Steve",
@@ -154,10 +156,20 @@ public class Manager : MonoBehaviour {
 
 	public Text consoleTxt;
 	public Text scoreTxt;
+	RectTransform rt;
 
 	void Start () {
 		numberOfSickPeople = difficulty * DIFFICULTY_MULTIPLIER;
 		numberOfHealthyPeople = numberOfPeople - numberOfSickPeople;
+
+		healthBar = GameObject.FindGameObjectWithTag ("Health");
+		rt = healthBar.GetComponent<RectTransform>();
+
+		Debug.Log ("Rect width: " + rt.rect.width);
+		healthBarWidth = rt.rect.width;
+		rt.sizeDelta = new Vector2(ReMap (numberOfSickPeople, 0, numberOfPeople, 0, healthBarWidth), rt.rect.height);
+
+		Debug.Log ("# sick: " + numberOfSickPeople + " | Rect val: " + ReMap (numberOfSickPeople, 0, numberOfPeople, 0, rt.rect.width));
 
 		for (int j = 0; j < numberOfPeople; j++) {
 			Room room = rooms[Random.Range(0, rooms.Length)];
@@ -187,6 +199,11 @@ public class Manager : MonoBehaviour {
 	void Update () {
 		CheckDoors ();
 		scoreTxt.text = score.ToString();
+
+		Debug.Log ("Rect width: " + rt.rect.width);
+		rt.sizeDelta = new Vector2(ReMap (numberOfSickPeople, 0, numberOfPeople, 0, healthBarWidth), rt.rect.height);
+
+		Debug.Log ("# sick: " + numberOfSickPeople);
 	}
 
 	//Opens the first door in the list if the list exceeds max count
@@ -217,6 +234,10 @@ public class Manager : MonoBehaviour {
 		}
 	}
 
+	public void PlayerDied(string name){
+		consoleTxt.text = name + " died";
+	}
+
 	public void ShowName(string name, string fact) {
 		consoleTxt.text = name + "\n\n" + fact;
 	}
@@ -229,5 +250,10 @@ public class Manager : MonoBehaviour {
 	public int removePoints() {
 		score += NEGATIVE_CONSTANT;
 		return NEGATIVE_CONSTANT;
+	}
+
+	private float ReMap(float s, float a1, float a2, float b1, float b2)
+	{
+		return b1 + (s-a1)*(b2-b1)/(a2-a1);
 	}
 }

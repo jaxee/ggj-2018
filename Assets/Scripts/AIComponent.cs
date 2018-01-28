@@ -140,7 +140,10 @@ public class AIComponent : MonoBehaviour {
 
 				if (currentDeathCount > deathTimeLength) {
 					Instantiate (death_Particles, transform.position, Quaternion.identity);
+					manager.PlayerDied (personName);
 					destoryPlayer ();
+					manager.numberOfSickPeople--;
+					manager.numberOfPeople--;
 				}
 			}
 		}

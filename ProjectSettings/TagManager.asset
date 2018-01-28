@@ -8,6 +8,7 @@ TagManager:
   - Door
   - Escape
   - EscapePoint
+  - Health
   layers:
   - Default
   - TransparentFX

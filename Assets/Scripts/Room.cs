@@ -49,11 +49,13 @@ public class Room : MonoBehaviour {
 		spreadingVirus = true;
 		yield return new WaitForSeconds (virusSpreadTime);
 		if (numOfInfectedPlayers > 0) {
+			Manager m = GameObject.FindObjectOfType<Manager> ();
 			foreach (GameObject player in playersInRoom) {
 				AIComponent p = player.GetComponent<AIComponent> ();
 				//Resilience is their %chance to get infected.
 				if (Random.Range (0, 100) > p.resilience && !p.isInfected) {
 					p.isInfected = true;
+					m.numberOfSickPeople++;
 				} else {
 					p.resilience -= numOfInfectedPlayers * 2;
 					p.resilience = Mathf.Clamp (p.resilience, 0, 100);

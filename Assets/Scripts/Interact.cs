@@ -127,10 +127,13 @@ public class Interact : MonoBehaviour {
 			AIComponent player = c.GetComponent<AIComponent>();
 			if (player.isInfected) {
 				negScoreDiff += manager.removePoints ();
+				manager.numberOfSickPeople--;
 			} else {
 				manager.addPoints ();
 				posScoreDiff += manager.addPoints ();
+				manager.numberOfHealthyPeople--;
 			}
+			manager.numberOfPeople--;
 
 			player.destoryPlayer();
 
