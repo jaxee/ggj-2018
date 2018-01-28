@@ -23,7 +23,8 @@ public class Manager : MonoBehaviour {
 	public int numberOfSickPeople;
 	public int numberOfHealthyPeople;
 
-	public GameObject person;
+	[SerializeField]
+	public GameObject[] person;
 	private GameObject healthBar;
 	private float healthBarWidth;
 
@@ -174,7 +175,7 @@ public class Manager : MonoBehaviour {
 		for (int j = 0; j < numberOfPeople; j++) {
 			Room room = rooms[Random.Range(0, rooms.Length)];
 			Vector3 spawnPos = room.loiterNodes [Random.Range (0, room.loiterNodes.Count)].position;
-			GameObject newPerson = Instantiate (person, spawnPos, transform.rotation) as GameObject;
+			GameObject newPerson = Instantiate (person[Random.Range(0,person.Length)], spawnPos, transform.rotation) as GameObject;
 
 			AIComponent p = newPerson.GetComponent<AIComponent> ();
 			int rn = Random.Range (0, listOfNames.Count-1);
