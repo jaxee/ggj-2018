@@ -8,7 +8,8 @@ A virus breaks out on a space station. There is no cure. You need to separate th
 
 ## How to Download
 Once the ZIP file is downloaded, use the program of your choice to extract the file into a folder. <br/>
-Inside the folder, there will be an EXE file, double click that file to run the game.
+Inside the folder, there will be an Exes.zip folder, also upzip this. <br />
+Inside this folder, open your operating system's folder and double click the .exe inside to run the game.
 
 ## Team
 3D Modeling - Jasmine Chan, David Dunkelman <br/>
