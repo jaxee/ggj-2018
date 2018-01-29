@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Room
+  - Door
+  - Escape
+  - EscapePoint
+  - Airlock
+  - Health
+  - Music
   layers:
   - Default
   - TransparentFX
